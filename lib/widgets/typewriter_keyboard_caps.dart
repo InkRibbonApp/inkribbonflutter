@@ -10,7 +10,7 @@ class TypewriterKeyboardCaps extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 220,
+      height: 210,
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -19,6 +19,7 @@ class TypewriterKeyboardCaps extends StatelessWidget {
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -127,6 +128,7 @@ class TypewriterKeyboardCaps extends StatelessWidget {
       height: 45,
       width: width,
       assetName: 'assets/keyboard/$key.png',
+      padding: EdgeInsets.only(left: 4, right: 4, bottom: 4),
       onTap: onTap,
     );
   }
