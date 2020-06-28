@@ -35,6 +35,7 @@ flutter:
         - asset: assets/fonts/uwch.ttf
 
   assets:
+    - assets/paper/
     - assets/onboarding/
     - assets/login/
     - assets/keyboard/
