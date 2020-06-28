@@ -1,7 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hackathon/text_styles.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatelessWidget {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = new GoogleSignIn();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,11 +57,27 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
+  Future<FirebaseUser> _signInWithGoogle() async {
+    GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+    FirebaseUser user = (await _auth.signInWithCredential(credential)).user;
+
+    return user;
+  }
+
   Widget _skipWidget(BuildContext context) {
     return RaisedButton(
       padding: const EdgeInsets.fromLTRB(12.0, 2.0, 12.0, 2.0),
       color: Colors.transparent,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0), side: BorderSide(color: Colors.grey)),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          side: BorderSide(color: Colors.grey)),
       onPressed: () {
         Navigator.pushReplacementNamed(context, '/main');
       },
@@ -72,7 +93,12 @@ class LoginScreen extends StatelessWidget {
     return FlatButton(
       color: Colors.white,
       splashColor: Colors.grey,
-      onPressed: () {},
+      onPressed: () {
+        _signInWithGoogle()
+            .then((FirebaseUser user) =>
+                Navigator.pushReplacementNamed(context, '/main'))
+            .catchError((e) => print(e));
+      },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
@@ -80,7 +106,9 @@ class LoginScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image(image: AssetImage("assets/login/google_logo.png"), height: 25.0),
+            Image(
+                image: AssetImage("assets/login/google_logo.png"),
+                height: 25.0),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
