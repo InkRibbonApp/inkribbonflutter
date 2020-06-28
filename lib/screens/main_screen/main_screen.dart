@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_hackathon/screens/main_screen/ink_ribbon_editable_text.dart';
+import 'package:flutter_hackathon/widgets/ink_ribbon_editable_text.dart';
 import 'package:flutter_hackathon/widgets/typewriter_keyboard.dart';
 
 class MainScreen extends StatefulWidget {
