@@ -16,11 +16,9 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    FirebaseAuth.instance.currentUser().then((firebaseUser){
-      if(firebaseUser != null) {
-        Navigator.pushNamed(
-            context, '/user', arguments: UserScreenArguments(firebaseUser)
-        );
+    FirebaseAuth.instance.currentUser().then((firebaseUser) {
+      if (firebaseUser != null) {
+        Navigator.pushNamed(context, '/user', arguments: UserScreenArguments(firebaseUser));
       }
     });
   }
@@ -30,42 +28,55 @@ class _LoginScreenState extends State<LoginScreen> {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.all(32.0),
+          padding: const EdgeInsets.all(0.0),
           child: Stack(
             fit: StackFit.expand,
             children: [
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: Image(fit: BoxFit.fill, image: AssetImage('assets/paper/paper.png'))),
               Align(
                 alignment: Alignment.topCenter,
-                child: Column(
-                  children: [
-                    Image(
-                      image: AssetImage("assets/login/logo.png"),
-                      height: 200.0,
-                    ),
-                    SizedBox(
-                      height: 40,
-                    ),
-                    Text(
-                      'Login to save your work on the cloud and access it on different devices.',
-                      overflow: TextOverflow.visible,
-                      style: kLoginTextStyle,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: Column(
+                    children: [
+                      Image(
+                        image: AssetImage("assets/login/inkribbon-logo.png"),
+                        height: 160.0,
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 28.0),
+                        child: Text(
+                          'Login to save your work on the cloud and access it on different devices.',
+                          overflow: TextOverflow.visible,
+                          style: kLoginTextStyle,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  direction: Axis.vertical,
-                  children: [
-                    _googleSignInWidget(context),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    _skipWidget(context),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 18.0),
+                  child: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    direction: Axis.vertical,
+                    children: [
+                      _googleSignInWidget(context),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      _skipWidget(context),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -77,8 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<FirebaseUser> _signInWithGoogle() async {
     GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-    GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
+    GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
 
     final AuthCredential credential = GoogleAuthProvider.getCredential(
       accessToken: googleSignInAuthentication.accessToken,
@@ -90,12 +100,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _skipWidget(BuildContext context) {
-    return RaisedButton(
-      padding: const EdgeInsets.fromLTRB(12.0, 2.0, 12.0, 2.0),
+    return FlatButton(
+      padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 8.0),
       color: Colors.transparent,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          side: BorderSide(color: Colors.grey)),
       onPressed: () {
         Navigator.pushReplacementNamed(context, '/main');
       },
@@ -109,14 +116,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _googleSignInWidget(BuildContext context) {
     return FlatButton(
-      color: Colors.white,
-      splashColor: Colors.grey,
       onPressed: () {
         _signInWithGoogle()
-            .then((FirebaseUser user) => Navigator.pushReplacementNamed(
-                context, '/user',
-                arguments: UserScreenArguments(user)
-        ))
+            .then((FirebaseUser user) =>
+                Navigator.pushReplacementNamed(context, '/user', arguments: UserScreenArguments(user)))
             .catchError((e) => print(e));
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -126,17 +129,15 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image(
-                image: AssetImage("assets/login/google_logo.png"),
-                height: 25.0),
+            Image(image: AssetImage("assets/login/google_logo.png"), height: 25.0),
+            SizedBox(
+              width: 10,
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
                 'Sign in with Google',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
-                ),
+                style: kLoginTextStyle,
               ),
             )
           ],
