@@ -5,6 +5,7 @@ import 'package:flutter_hackathon/widgets/typewriter_keyboard_caps.dart';
 import 'package:flutter_hackathon/widgets/typewriter_keyboard_hidden.dart';
 import 'package:flutter_hackathon/widgets/typewriter_keyboard_lower_case.dart';
 import 'package:flutter_hackathon/widgets/typewriter_keyboard_special_one.dart';
+import 'package:flutter_hackathon/widgets/typewriter_keyboard_special_two.dart';
 
 class TypewriterKeyboard extends StatefulWidget {
   TypewriterKeyboard({this.typewriterKeyboardController});
@@ -39,7 +40,7 @@ class _TypewriterKeyboardState extends State<TypewriterKeyboard> {
               return _buildlowerCaseKeyboard();
             case KeyboardType.SPECIAL_1:
               return _buildSpecialOneKeyboard();
-            case KeyboardType.SPECIAL_1:
+            case KeyboardType.SPECIAL_2:
               return _buildSpecialTwoKeyboard();
             default:
               return SizedBox(
@@ -78,7 +79,7 @@ class _TypewriterKeyboardState extends State<TypewriterKeyboard> {
   }
 
   Widget _buildSpecialTwoKeyboard() {
-    return TypewriterKeyboardSpecialOne(
+    return TypewriterKeyboardSpecialTwo(
       typewriterKeyboardController: typewriterKeyboardController,
     );
   }

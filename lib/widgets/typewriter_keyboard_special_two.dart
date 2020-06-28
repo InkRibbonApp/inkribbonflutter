@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hackathon/widgets/typewriter_key.dart';
 import 'package:flutter_hackathon/widgets/typewriter_keyboard.dart';
 
-class TypewriterKeyboardSpecialOne extends StatelessWidget {
-  TypewriterKeyboardSpecialOne({@required this.typewriterKeyboardController});
+class TypewriterKeyboardSpecialTwo extends StatelessWidget {
+  TypewriterKeyboardSpecialTwo({@required this.typewriterKeyboardController});
 
   final TypewriterKeyboardController typewriterKeyboardController;
 
@@ -41,15 +41,15 @@ class TypewriterKeyboardSpecialOne extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildLetterKey('semicolon', ';'),
-                  _buildLetterKey('double_quotes', '"'),
-                  _buildLetterKey('equal', '='),
-                  _buildLetterKey('percent', '%'),
-                  _buildLetterKey('ampersand', '&'),
-                  _buildLetterKey('open_parenthesis', '('),
-                  _buildLetterKey('close_parenthesis', ')'),
-                  _buildLetterKey('underscore', '_'),
-                  _buildLetterKey('at', '@'),
+                  _buildLetterKey('open_angle', '<'),
+                  _buildLetterKey('close_angle', '>'),
+                  _buildLetterKey('open_curly', '{'),
+                  _buildLetterKey('close_curly', '}'),
+                  _buildLetterKey('open_square', '['),
+                  _buildLetterKey('close_square', ']'),
+                  _buildLetterKey('beta', 'β'),
+                  _buildLetterKey('paragraph', '¶'),
+                  _buildLetterKey('plusminus', '±'),
                   _buildEnterKey(),
                 ],
               ),
@@ -58,15 +58,15 @@ class TypewriterKeyboardSpecialOne extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _buildShiftKey(),
-                  _buildLetterKey('slash', '/'),
-                  _buildLetterKey('colon', ':'),
-                  _buildLetterKey('backtick', '`'),
-                  _buildLetterKey('tick', '\''),
-                  _buildLetterKey('tick', '\''),
-                  _buildLetterKey('plus', '+'),
-                  _buildLetterKey('minus', '-'),
-                  _buildLetterKey('question', '?'),
-                  _buildLetterKey('exclamation', '!'),
+                  _buildLetterKey('double_s', '§'),
+                  _buildLetterKey('copyright', '©'),
+                  _buildLetterKey('registered', '®'),
+                  _buildLetterKey('14', '¼'),
+                  _buildLetterKey('12', '½'),
+                  _buildLetterKey('34', '¾'),
+                  _buildLetterKey('caret', '^'),
+                  _buildLetterKey('euro', '€'),
+                  _buildLetterKey('dollar', '\$'),
                   _buildShiftKey(),
                 ],
               ),
@@ -74,18 +74,18 @@ class TypewriterKeyboardSpecialOne extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildThickLetterKey('special_2', () {
+                  _buildThickLetterKey('abc', () {
                     typewriterKeyboardController
-                        .setTypewriterState(TypewriterState(isOpen: true, type: KeyboardType.SPECIAL_2));
+                        .setTypewriterState(TypewriterState(isOpen: true, type: KeyboardType.CAPS));
                   }),
                   _buildThickLetterKey('down_arrow', () {
                     typewriterKeyboardController.setTypewriterState(
                         TypewriterState(isOpen: false, type: typewriterKeyboardController.state.type));
                   }),
                   _buildSpaceLetterKey(),
-                  _buildThickLetterKey('special_2', () {
+                  _buildThickLetterKey('abc', () {
                     typewriterKeyboardController
-                        .setTypewriterState(TypewriterState(isOpen: true, type: KeyboardType.SPECIAL_2));
+                        .setTypewriterState(TypewriterState(isOpen: true, type: KeyboardType.CAPS));
                   }),
                 ],
               ),

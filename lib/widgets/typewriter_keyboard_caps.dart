@@ -83,9 +83,9 @@ class TypewriterKeyboardCaps extends StatelessWidget {
                         TypewriterState(isOpen: false, type: typewriterKeyboardController.state.type));
                   }),
                   _buildSpaceLetterKey(),
-                  _buildThickLetterKey('down_arrow', () {
-                    typewriterKeyboardController.setTypewriterState(
-                        TypewriterState(isOpen: false, type: typewriterKeyboardController.state.type));
+                  _buildThickLetterKey('special_1', () {
+                    typewriterKeyboardController
+                        .setTypewriterState(TypewriterState(isOpen: true, type: KeyboardType.SPECIAL_1));
                   }),
                 ],
               ),
