@@ -46,7 +46,7 @@ class TypewriterKeyboardCaps extends StatelessWidget {
                 _buildLetterKey('a-cap'),
                 _buildLetterKey('s-cap'),
                 _buildLetterKey('d-cap'),
-                _buildLetterKey('e-cap'),
+                _buildLetterKey('f-cap'),
                 _buildLetterKey('g-cap'),
                 _buildLetterKey('h-cap'),
                 _buildLetterKey('j-cap'),
