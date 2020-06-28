@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hackathon/widgets/typewriter_key.dart';
 import 'package:flutter_hackathon/widgets/typewriter_keyboard.dart';
 
 class TypewriterKeyboardCaps extends StatelessWidget {
@@ -96,37 +97,22 @@ class TypewriterKeyboardCaps extends StatelessWidget {
   }
 
   Widget _buildLetterKey(String key) {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Image.asset(
-        'assets/keyboard/$key.png',
-        height: 50,
-        width: 50,
-      ),
-    );
+    return _buildKey(50, key);
   }
 
   Widget _buildThickLetterKey(String key) {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Image.asset(
-        'assets/keyboard/$key.png',
-        fit: BoxFit.fill,
-        width: 80,
-        height: 50,
-      ),
-    );
+    return _buildKey(80, key);
   }
 
   Widget _buildSpaceLetterKey(String key) {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Image.asset(
-        'assets/keyboard/$key.png',
-        fit: BoxFit.fill,
-        height: 50,
-        width: 350,
-      ),
+    return _buildKey(350, key);
+  }
+
+  Widget _buildKey(double width, String key) {
+    return TypewriterKey(
+      height: 50,
+      width: width,
+      assetName: 'assets/keyboard/$key.png',
     );
   }
 }
