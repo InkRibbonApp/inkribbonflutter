@@ -1,4 +1,7 @@
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TypewriterKey extends StatefulWidget {
   TypewriterKey({@required this.assetName, this.height, this.width, this.onTap});
@@ -14,18 +17,26 @@ class TypewriterKey extends StatefulWidget {
 
 class _TypewriterKeyState extends State<TypewriterKey> with SingleTickerProviderStateMixin {
   bool _isPressed = false;
+  AudioCache _audioPlayer;
+
+  @override
+  void initState() {
+    _audioPlayer = Provider.of<AudioCache>(context, listen: false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTapDown: (_) {
+      onTapDown: (_) async {
+        await _audioPlayer.play('sounds/typing_sound_2wav.wav');
         setState(() {
           if (!_isPressed) {
             _isPressed = true;
           }
         });
       },
-      onTapUp: (details) {
+      onTapUp: (_) {
         setState(() {
           if (_isPressed) {
             _isPressed = false;
