@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "3301197304",
+    "firebase_url": "https://inkribbon-cd2f7.firebaseio.com",
+    "project_id": "inkribbon-cd2f7",
+    "storage_bucket": "inkribbon-cd2f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3301197304:android:b4e2091c26103ef59b820d",
+        "android_client_info": {
+          "package_name": "com.gmt10.flutter_hackathon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3301197304-43v28i6ujqfthbg5bbafcdubs82lolhh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBAYADHfvW2XOBG0k-zRmMp756xGJr-FQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3301197304-43v28i6ujqfthbg5bbafcdubs82lolhh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
