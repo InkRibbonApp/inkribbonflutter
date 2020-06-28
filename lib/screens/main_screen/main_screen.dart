@@ -8,6 +8,12 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  double xPosition = 0;
+  double yPosition = 0;
+  TextEditingController _controller = TextEditingController(
+    text: '',
+  );
+
   @override
   void initState() {
     super.initState();
@@ -31,35 +37,51 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Container(
-          color: Colors.white,
-          child: InkRibbonEditableText(
-            controller: TextEditingController(
-              text:
-                  "Look at these beautiful horses and elephants! Who brought them here",
+      body: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Expanded(
+            child: Stack(
+              children: [
+                Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: _buildBackgroundImage()),
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: Colors.transparent,
+                    child: buildInkRibbonEditableText(),
+                  ),
+                )
+              ],
             ),
-            cursorColor: Colors.green,
-            selectionColor: Colors.red,
-            style: TextStyle(
-                fontStyle: FontStyle.normal,
-                fontSize: 30.0,
-                color: Colors.black),
-            backgroundCursorColor: Colors.black,
-            hideSoftKeyboard: true,
-            focusNode: NoKeyboardEditableTextFocusNode(),
           ),
-        ),
+        ],
       ),
     );
   }
-}
 
-class NoKeyboardEditableTextFocusNode extends FocusNode {
-  @override
-  bool consumeKeyboardToken() {
-    // prevents keyboard from showing on first focus
-    return false;
+  Image _buildBackgroundImage() {
+    return Image(fit: BoxFit.fill, image: AssetImage('assets/paper/paper.png'));
+  }
+
+  InkRibbonEditableText buildInkRibbonEditableText() {
+    return InkRibbonEditableText(
+      key: ValueKey('$xPosition$yPosition'),
+      controller: _controller,
+      cursorColor: Colors.black,
+      cursorOpacityAnimates: false,
+      enableInteractiveSelection: false,
+      style: TextStyle(
+          fontStyle: FontStyle.normal, fontSize: 30.0, color: Colors.black),
+      backgroundCursorColor: Colors.black,
+      hideSoftKeyboard: true,
+      keyboardType: TextInputType.multiline,
+      maxLines: null,
+      minLines: 20,
+      focusNode: FocusNode(),
+    );
   }
 }
