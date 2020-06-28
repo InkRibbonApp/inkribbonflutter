@@ -20,7 +20,7 @@ class TypewriterApp extends StatelessWidget {
         theme: ThemeData.dark().copyWith(
           bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.transparent),
         ),
-        initialRoute: '/',
+        initialRoute: shouldShowOnboard ? '/' : '/login',
         routes: {
           '/': (context) => OnboardingScreen(),
           '/login': (context) => LoginScreen(),

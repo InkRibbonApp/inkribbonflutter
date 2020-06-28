@@ -5,7 +5,7 @@ final kOnboardingTextStyle =
 final kOnboardingButtonTextStyle =
     TextStyle(fontSize: 16, fontWeight: FontWeight.w900, fontFamily: 'Bohemian', color: Colors.black.withAlpha(200));
 final kLoginTextStyle =
-    TextStyle(fontSize: 18, fontWeight: FontWeight.w900, fontFamily: 'Bohemian', color: Colors.black.withAlpha(200));
+    TextStyle(fontSize: 15, fontWeight: FontWeight.w900, fontFamily: 'Bohemian', color: Colors.black.withAlpha(200));
 final kLoginGoogleTextStyle =
     TextStyle(fontSize: 13, fontWeight: FontWeight.w900, fontFamily: 'Bohemian', color: Colors.black.withAlpha(200));
 

@@ -37,28 +37,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: MediaQuery.of(context).size.height,
                   child: Image(fit: BoxFit.fill, image: AssetImage('assets/paper/paper.png'))),
               Align(
-                alignment: Alignment.topCenter,
+                alignment: Alignment.center,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 16.0),
-                  child: Column(
-                    children: [
-                      Image(
-                        image: AssetImage("assets/login/inkribbon-logo.png"),
-                        height: 160.0,
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 28.0),
-                        child: Text(
-                          'Login to save your work on the cloud and access it on different devices.',
-                          overflow: TextOverflow.visible,
-                          style: kLoginTextStyle,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
+                  child: Image(
+                    image: AssetImage("assets/login/inkribbon-logo.png"),
+                    height: 160.0,
                   ),
                 ),
               ),
@@ -70,10 +54,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: WrapCrossAlignment.center,
                     direction: Axis.vertical,
                     children: [
-                      _googleSignInWidget(context),
-                      SizedBox(
-                        height: 2,
+                      Text(
+                        'Login to save your work on the cloud and access it on different devices',
+                        overflow: TextOverflow.visible,
+                        style: kLoginGoogleTextStyle,
+                        textAlign: TextAlign.center,
                       ),
+                      _googleSignInWidget(context),
                       _skipWidget(context),
                     ],
                   ),
