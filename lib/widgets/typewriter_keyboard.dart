@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_hackathon/widgets/typewriter_keyboard_caps.dart';
 import 'package:flutter_hackathon/widgets/typewriter_keyboard_hidden.dart';
+import 'package:flutter_hackathon/widgets/typewriter_keyboard_lower_case.dart';
 
 class TypewriterKeyboard extends StatefulWidget {
   TypewriterKeyboard({this.typewriterKeyboardController});
@@ -60,7 +61,7 @@ class _TypewriterKeyboardState extends State<TypewriterKeyboard> {
   }
 
   Widget _buildlowerCaseKeyboard() {
-    return TypewriterKeyboardCaps(
+    return TypewriterKeyboardLowerCase(
       typewriterKeyboardController: typewriterKeyboardController,
     );
   }
