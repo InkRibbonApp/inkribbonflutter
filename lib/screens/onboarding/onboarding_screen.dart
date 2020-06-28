@@ -1,8 +1,10 @@
+import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hackathon/screens/onboarding/onboarding_page_one.dart';
 import 'package:flutter_hackathon/screens/onboarding/onboarding_page_three.dart';
 import 'package:flutter_hackathon/screens/onboarding/onboarding_page_two.dart';
 import 'package:page_view_indicator/page_view_indicator.dart';
+import 'package:provider/provider.dart';
 
 import '../../text_styles.dart';
 
@@ -14,6 +16,14 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> with TickerProviderStateMixin {
   final _pageIndexNotifier = ValueNotifier<int>(0);
   PageController _pageController = PageController();
+  AudioCache _audioPlayer;
+
+  @override
+  void initState() {
+    _audioPlayer = Provider.of<AudioCache>(context, listen: false);
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +31,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
       child: Scaffold(
         body: Stack(
           children: [
-            Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: Image(fit: BoxFit.fill, image: AssetImage('assets/paper/paper.png'))),
             PageView(
               physics: BouncingScrollPhysics(),
               controller: _pageController,
               onPageChanged: (index) {
+                _audioPlayer.play('sounds/pageturn.wav');
                 setState(() {
                   _pageIndexNotifier.value = index;
                 });
