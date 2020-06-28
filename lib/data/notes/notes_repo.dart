@@ -17,14 +17,16 @@ Usage:
 */
 
 class NotesRepo {
-  Future<void> uploadNote(String content, String filename) async {
+  Future<void> uploadNote(
+      String content, String filename, FirebaseUser user) async {
     final file = await _writeFile(content, filename);
 
     StorageReference storageReference;
     if (filename == null) {
       filename = content.hashCode.toString();
     }
-    storageReference = FirebaseStorage.instance.ref().child("notes/$filename");
+    storageReference =
+        FirebaseStorage.instance.ref().child("notes/${user.uid}/$filename");
 
     final StorageUploadTask uploadTask = storageReference.putFile(file);
     final StorageTaskSnapshot downloadUrl = (await uploadTask.onComplete);
@@ -34,13 +36,21 @@ class NotesRepo {
 
   Future<List<String>> getListOfNotes(FirebaseUser user) async {
     final StorageReference _storageReference =
-        FirebaseStorage.instance.ref().child('notes');
+        FirebaseStorage.instance.ref().child('notes/${user.uid}');
 
     return _storageReference.listAll().then((result) =>
         (result["items"] as Map<dynamic, dynamic>)
             .values
             .map((e) => (e["path"] as String))
             .toList());
+  }
+
+  Future<String> getNote(String filename) async {
+    return FirebaseStorage.instance
+        .ref()
+        .child(filename)
+        .getData(100000)
+        .then((value) => String.fromCharCodes(value));
   }
 
   Future<String> get _localPath async {

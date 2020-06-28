@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hackathon/data/notes/notes_repo.dart';
 import 'package:flutter_hackathon/widgets/ink_ribbon_editable_text.dart';
 import 'package:flutter_hackathon/widgets/typewriter_keyboard.dart';
 
@@ -17,6 +19,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final repo = NotesRepo();
   double xPosition = 0;
   double yPosition = 0;
   TextEditingController _textEditcontroller = TextEditingController(
@@ -52,6 +55,11 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final MainScreenArguments args = ModalRoute.of(context).settings.arguments;
+    if (args.file != null) {
+      repo.getNote(args.file).then((text) => _textEditcontroller.text = text);
+    }
+
     return Scaffold(
       body: Column(
         mainAxisSize: MainAxisSize.max,
