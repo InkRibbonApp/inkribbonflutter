@@ -1,15 +1,15 @@
 import 'package:audioplayers/audio_cache.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TypewriterKey extends StatefulWidget {
-  TypewriterKey({@required this.assetName, this.height, this.width, this.onTap});
+  TypewriterKey({@required this.assetName, this.height, this.width, this.onTap, this.padding});
 
   final double height;
   final double width;
   final Function onTap;
   final String assetName;
+  final EdgeInsets padding;
 
   @override
   _TypewriterKeyState createState() => _TypewriterKeyState();
@@ -44,7 +44,7 @@ class _TypewriterKeyState extends State<TypewriterKey> with SingleTickerProvider
         });
       },
       child: Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: widget.padding ?? const EdgeInsets.all(4.0),
         child: _buildKey(),
       ),
     );

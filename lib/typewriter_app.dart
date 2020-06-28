@@ -13,7 +13,9 @@ class TypewriterApp extends StatelessWidget {
     return Provider<AudioCache>.value(
       value: player,
       child: MaterialApp(
-        theme: ThemeData.dark(),
+        theme: ThemeData.dark().copyWith(
+          bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.transparent),
+        ),
         initialRoute: '/',
         routes: {
           '/': (context) => OnboardingScreen(),

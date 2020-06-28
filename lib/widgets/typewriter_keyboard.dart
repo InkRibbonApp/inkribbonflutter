@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hackathon/widgets/typewriter_keyboard_caps.dart';
+import 'package:flutter_hackathon/widgets/typewriter_keyboard_hidden.dart';
 
 class TypewriterKeyboard extends StatefulWidget {
   TypewriterKeyboard({this.typewriterKeyboardController});
@@ -47,24 +48,8 @@ class _TypewriterKeyboardState extends State<TypewriterKeyboard> {
   }
 
   Widget _buildHiddenKeyboard() {
-    return SizedBox(
-      height: 50,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Container(
-            color: Colors.red,
-            child: FlatButton(
-              child: Text('open it'),
-              onPressed: () {
-                typewriterKeyboardController.streamController.add(
-                  TypewriterState(isOpen: true, type: KeyboardType.CAPS),
-                );
-              },
-            ),
-          )
-        ],
-      ),
+    return TypewriterKeyboardHidden(
+      typewriterKeyboardController: typewriterKeyboardController,
     );
   }
 
