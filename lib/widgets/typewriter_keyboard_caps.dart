@@ -52,7 +52,7 @@ class TypewriterKeyboardCaps extends StatelessWidget {
                 _buildLetterKey('j-cap'),
                 _buildLetterKey('k-cap'),
                 _buildLetterKey('l-cap'),
-                _buildThickLetterKey('enter'),
+                _buildThickLetterKey('enter', null),
               ],
             ),
           ),
@@ -84,10 +84,16 @@ class TypewriterKeyboardCaps extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildThickLetterKey('special_1'),
-                _buildThickLetterKey('down_arrow'),
+                _buildThickLetterKey('special_1', null),
+                _buildThickLetterKey('down_arrow', () {
+                  typewriterKeyboardController.setTypewriterState(
+                      TypewriterState(isOpen: false, type: typewriterKeyboardController.state.type));
+                }),
                 _buildSpaceLetterKey('space'),
-                _buildThickLetterKey('down_arrow'),
+                _buildThickLetterKey('down_arrow', () {
+                  typewriterKeyboardController.setTypewriterState(
+                      TypewriterState(isOpen: false, type: typewriterKeyboardController.state.type));
+                }),
               ],
             ),
           ),
@@ -97,22 +103,24 @@ class TypewriterKeyboardCaps extends StatelessWidget {
   }
 
   Widget _buildLetterKey(String key) {
-    return _buildKey(50, key);
+    return _buildKey(50, key, null);
   }
 
-  Widget _buildThickLetterKey(String key) {
-    return _buildKey(80, key);
+  Widget _buildThickLetterKey(String key, Function onTap) {
+    return _buildKey(80, key, onTap);
   }
 
   Widget _buildSpaceLetterKey(String key) {
-    return _buildKey(350, key);
+    return _buildKey(350, key, null);
   }
 
-  Widget _buildKey(double width, String key) {
+  Widget _buildKey(double width, String key, Function onTap) {
     return TypewriterKey(
+      key: UniqueKey(),
       height: 50,
       width: width,
       assetName: 'assets/keyboard/$key.png',
+      onTap: onTap,
     );
   }
 }

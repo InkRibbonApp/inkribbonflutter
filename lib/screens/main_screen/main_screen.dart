@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hackathon/screens/main_screen/ink_ribbon_editable_text.dart';
+import 'package:flutter_hackathon/widgets/typewriter_keyboard.dart';
+
+import '../../typewriter_app.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -63,6 +66,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
+      bottomSheet: TypewriterKeyboard(),
     );
   }
 
@@ -77,8 +81,7 @@ class _MainScreenState extends State<MainScreen> {
       cursorColor: Colors.black,
       cursorOpacityAnimates: false,
       enableInteractiveSelection: false,
-      style: TextStyle(
-          fontStyle: FontStyle.normal, fontSize: 20.0, color: Colors.black),
+      style: TextStyle(fontStyle: FontStyle.normal, fontSize: 20.0, color: Colors.black),
       backgroundCursorColor: Colors.black,
       hideSoftKeyboard: true,
       keyboardType: TextInputType.multiline,

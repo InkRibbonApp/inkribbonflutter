@@ -23,15 +23,15 @@ class TypewriterKeyboardHidden extends StatelessWidget {
   }
 
   Widget _buildLetterKey(String key) {
-    return _buildKey(50, key);
-  }
-
-  Widget _buildKey(double width, String key) {
     return TypewriterKey(
       height: 50,
       width: 80,
       padding: EdgeInsets.all(0),
       assetName: 'assets/keyboard/$key.png',
+      onTap: () {
+        typewriterKeyboardController
+            .setTypewriterState(TypewriterState(isOpen: true, type: typewriterKeyboardController.state.type));
+      },
     );
   }
 }

@@ -70,7 +70,7 @@ class _TypewriterKeyboardState extends State<TypewriterKeyboard> {
             child: FlatButton(
               child: Text('close it'),
               onPressed: () {
-                typewriterKeyboardController.streamController.add(
+                typewriterKeyboardController.setTypewriterState(
                   TypewriterState(isOpen: false, type: KeyboardType.CAPS),
                 );
               },
@@ -83,7 +83,7 @@ class _TypewriterKeyboardState extends State<TypewriterKeyboard> {
 }
 
 class TypewriterKeyboardController {
-  StreamController<TypewriterState> streamController = StreamController.broadcast();
+  StreamController<TypewriterState> _streamController = StreamController.broadcast();
 
   TypewriterState _state;
 
@@ -91,10 +91,19 @@ class TypewriterKeyboardController {
     return _state;
   }
 
-  Stream<TypewriterState> get stateStream => streamController.stream;
+  void setTypewriterState(TypewriterState typewriterState) {
+    _state = typewriterState;
+    _streamController.add(typewriterState);
+  }
+
+  Stream<TypewriterState> get stateStream => _streamController.stream;
+
+  TypewriterKeyboardController() {
+    _state = TypewriterState(isOpen: true, type: KeyboardType.CAPS);
+  }
 
   void dispose() {
-    streamController.close();
+    _streamController.close();
   }
 }
 

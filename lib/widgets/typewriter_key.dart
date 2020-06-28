@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TypewriterKey extends StatefulWidget {
-  TypewriterKey({@required this.assetName, this.height, this.width, this.onTap, this.padding});
+  TypewriterKey({@required this.assetName, Key key, this.height, this.width, this.onTap, this.padding})
+      : super(key: key);
 
   final double height;
   final double width;
@@ -28,9 +29,11 @@ class _TypewriterKeyState extends State<TypewriterKey> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTapDown: (_) async {
-        await _audioPlayer.play('sounds/typing_sound_2wav.wav');
+      onTapDown: (_) {
+        widget?.onTap?.call();
         setState(() {
+          _audioPlayer.play('sounds/typing_sound_2wav.wav');
+
           if (!_isPressed) {
             _isPressed = true;
           }
