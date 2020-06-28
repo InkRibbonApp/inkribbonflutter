@@ -119,7 +119,9 @@ class TypewriterKeyboardCaps extends StatelessWidget {
   }
 
   Widget _buildSpaceLetterKey(String key) {
-    return _buildKey(350, key, null);
+    return _buildKey(350, key, () {
+      typewriterKeyboardController.addText(' ');
+    });
   }
 
   Widget _buildKey(double width, String key, Function onTap) {
