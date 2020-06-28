@@ -34,7 +34,7 @@ class TypewriterKeyboardLowerCase extends StatelessWidget {
                   _buildLetterKey('i', 'i'),
                   _buildLetterKey('o', 'o'),
                   _buildLetterKey('p', 'p'),
-                  _buildLetterKey('backspace', 'backspace'),
+                  _buildBackspaceKey(),
                 ],
               ),
               Row(
@@ -94,41 +94,48 @@ class TypewriterKeyboardLowerCase extends StatelessWidget {
   }
 
   Widget _buildLetterKey(String key, String text) {
-    return _buildKey(45, key, () {
+    return _buildKey(45, key, null, () {
       typewriterKeyboardController.addText(text);
     });
   }
 
+  Widget _buildBackspaceKey() {
+    return _buildKey(45, 'backspace', 'sounds/typing_sound_soft.wav', () {
+      typewriterKeyboardController.addText('backspace');
+    });
+  }
+
   Widget _buildEnterKey() {
-    return _buildKey(70, 'enter', () {
+    return _buildKey(70, 'enter', 'sounds/ding_sound.wav', () {
       typewriterKeyboardController.addText('\n');
     });
   }
 
   Widget _buildThickLetterKey(String key, Function onTap) {
-    return _buildKey(70, key, onTap);
+    return _buildKey(70, key, 'sounds/typing_sound_soft.wav', onTap);
   }
 
   Widget _buildShiftKey() {
-    return _buildKey(45, 'shift', () {
+    return _buildKey(45, 'shift', 'sounds/typing_sound_soft.wav', () {
       typewriterKeyboardController.setTypewriterState(
           TypewriterState(isOpen: typewriterKeyboardController.state.isOpen, type: KeyboardType.CAPS));
     });
   }
 
   Widget _buildSpaceLetterKey() {
-    return _buildKey(350, 'space', () {
+    return _buildKey(350, 'space', null, () {
       typewriterKeyboardController.addText(' ');
     });
   }
 
-  Widget _buildKey(double width, String key, Function onTap) {
+  Widget _buildKey(double width, String key, String soundAsset, Function onTap) {
     return TypewriterKey(
       key: UniqueKey(),
       height: 45,
       width: width,
       padding: EdgeInsets.only(left: 4, right: 4, bottom: 4),
       assetName: 'assets/keyboard/$key.png',
+      soundAsset: soundAsset,
       onTap: onTap,
     );
   }

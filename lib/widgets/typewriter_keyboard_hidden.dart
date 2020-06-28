@@ -15,23 +15,20 @@ class TypewriterKeyboardHidden extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.bottomCenter,
-            child: _buildLetterKey('up_arrow'),
+            child: TypewriterKey(
+              height: 50,
+              width: 80,
+              padding: EdgeInsets.all(0),
+              assetName: 'assets/keyboard/up_arrow.png',
+              soundAsset: 'sounds/typing_sound_soft.wav',
+              onTap: () {
+                typewriterKeyboardController
+                    .setTypewriterState(TypewriterState(isOpen: true, type: typewriterKeyboardController.state.type));
+              },
+            ),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildLetterKey(String key) {
-    return TypewriterKey(
-      height: 50,
-      width: 80,
-      padding: EdgeInsets.all(0),
-      assetName: 'assets/keyboard/$key.png',
-      onTap: () {
-        typewriterKeyboardController
-            .setTypewriterState(TypewriterState(isOpen: true, type: typewriterKeyboardController.state.type));
-      },
     );
   }
 }
