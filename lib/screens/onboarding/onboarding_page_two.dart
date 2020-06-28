@@ -43,20 +43,20 @@ class OnboardingPageTwo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            mainImage,
-            width: 150,
-            height: 200,
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Expanded(
+          Flexible(
             child: Text(
               title,
               style: kOnboardingTextStyle,
               textAlign: TextAlign.center,
             ),
+          ),
+          SizedBox(
+            width: 30,
+          ),
+          Image.asset(
+            mainImage,
+            width: 150,
+            height: 200,
           ),
         ],
       ),

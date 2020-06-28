@@ -49,9 +49,9 @@ class OnboardingPageOne extends StatelessWidget {
             height: 200,
           ),
           SizedBox(
-            width: 20,
+            width: 30,
           ),
-          Expanded(
+          Flexible(
             child: Text(
               title,
               style: kOnboardingTextStyle,
