@@ -53,7 +53,9 @@ class _MainScreenState extends State<MainScreen> {
 
   void _autoSave() {
     final MainScreenArguments args = ModalRoute.of(context).settings.arguments;
-    repo.uploadNote(_textEditcontroller.text, fileName, args.user);
+    if (args != null && args.file != null && args.user != null) {
+      repo.uploadNote(_textEditcontroller.text, fileName, args.user);
+    }
   }
 
   @override
