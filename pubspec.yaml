@@ -13,7 +13,6 @@ dependencies:
   firebase_core: ^0.4.0+9
   firebase_auth: ^0.14.0+5
   firebase_storage: ^3.1.6
-  keyboard_actions: ^3.2.0
   intl: any
   pdf: ^1.3.24
   flutter_full_pdf_viewer: ^1.0.6
@@ -24,6 +23,8 @@ dependencies:
   provider: ^4.1.3
   page_turn: ^1.0.1
   audioplayers: ^0.15.1
+
+  google_sign_in: ^4.5.1
 
 dev_dependencies:
   flutter_test:
