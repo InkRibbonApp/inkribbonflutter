@@ -60,24 +60,8 @@ class _TypewriterKeyboardState extends State<TypewriterKeyboard> {
   }
 
   Widget _buildlowerCaseKeyboard() {
-    return SizedBox(
-      height: 200,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Container(
-            color: Colors.red,
-            child: FlatButton(
-              child: Text('close it'),
-              onPressed: () {
-                typewriterKeyboardController.setTypewriterState(
-                  TypewriterState(isOpen: false, type: KeyboardType.CAPS),
-                );
-              },
-            ),
-          )
-        ],
-      ),
+    return TypewriterKeyboardCaps(
+      typewriterKeyboardController: typewriterKeyboardController,
     );
   }
 }

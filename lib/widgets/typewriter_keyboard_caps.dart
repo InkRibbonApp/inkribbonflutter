@@ -49,14 +49,14 @@ class TypewriterKeyboardCaps extends StatelessWidget {
                   _buildLetterKey('j-cap', 'J'),
                   _buildLetterKey('k-cap', 'K'),
                   _buildLetterKey('l-cap', 'L'),
-                  _buildEnterKey('enter', '\n'),
+                  _buildEnterKey(),
                 ],
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildLetterKey('shift', 'shift'),
+                  _buildShiftKey(),
                   _buildLetterKey('z-cap', 'Z'),
                   _buildLetterKey('x-cap', 'X'),
                   _buildLetterKey('c-cap', 'C'),
@@ -66,7 +66,7 @@ class TypewriterKeyboardCaps extends StatelessWidget {
                   _buildLetterKey('m-cap', 'M'),
                   _buildLetterKey('comma', ','),
                   _buildLetterKey('dot', '.'),
-                  _buildLetterKey('shift', 'shift'),
+                  _buildShiftKey(),
                 ],
               ),
               Row(
@@ -78,7 +78,7 @@ class TypewriterKeyboardCaps extends StatelessWidget {
                     typewriterKeyboardController.setTypewriterState(
                         TypewriterState(isOpen: false, type: typewriterKeyboardController.state.type));
                   }),
-                  _buildSpaceLetterKey('space'),
+                  _buildSpaceLetterKey(),
                   _buildThickLetterKey('down_arrow', () {
                     typewriterKeyboardController.setTypewriterState(
                         TypewriterState(isOpen: false, type: typewriterKeyboardController.state.type));
@@ -98,9 +98,9 @@ class TypewriterKeyboardCaps extends StatelessWidget {
     });
   }
 
-  Widget _buildEnterKey(String key, String text) {
-    return _buildKey(70, key, () {
-      typewriterKeyboardController.addText(text);
+  Widget _buildEnterKey() {
+    return _buildKey(70, 'enter', () {
+      typewriterKeyboardController.addText('\n');
     });
   }
 
@@ -108,8 +108,15 @@ class TypewriterKeyboardCaps extends StatelessWidget {
     return _buildKey(70, key, onTap);
   }
 
-  Widget _buildSpaceLetterKey(String key) {
-    return _buildKey(350, key, () {
+  Widget _buildShiftKey() {
+    return _buildKey(45, 'shift', () {
+      typewriterKeyboardController.setTypewriterState(
+          TypewriterState(isOpen: typewriterKeyboardController.state.isOpen, type: KeyboardType.LOWER_CASE));
+    });
+  }
+
+  Widget _buildSpaceLetterKey() {
+    return _buildKey(350, 'space', () {
       typewriterKeyboardController.addText(' ');
     });
   }
