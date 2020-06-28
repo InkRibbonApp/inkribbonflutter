@@ -13,7 +13,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   double xPosition = 0;
   double yPosition = 0;
-  TextEditingController _controller = TextEditingController(
+  TextEditingController _textEditcontroller = TextEditingController(
     text: '',
   );
   TypewriterKeyboardController _keyboardController;
@@ -22,7 +22,9 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     _keyboardController = TypewriterKeyboardController();
-    _keyboardController.textStream.listen(_onTextReceived);
+    _keyboardController.stateStream.listen((event) {
+      _textEditcontroller.selection = TextSelection.fromPosition(TextPosition(offset: _textEditcontroller.text.length));
+    });
     SystemChrome.setPreferredOrientations(
       [
         DeviceOrientation.landscapeRight,
@@ -48,7 +50,7 @@ class _MainScreenState extends State<MainScreen> {
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(40.0, 10.0, 40.0, 10.0),
+              padding: const EdgeInsets.fromLTRB(40.0, 20, 40.0, 10.0),
               child: Stack(
                 children: [
                   Container(
@@ -56,12 +58,20 @@ class _MainScreenState extends State<MainScreen> {
                       height: MediaQuery.of(context).size.height,
                       child: _buildBackgroundImage()),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(16.0, 30.0, 16.0, 0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      color: Colors.transparent,
-                      child: buildInkRibbonEditableText(),
-                    ),
+                    padding: const EdgeInsets.fromLTRB(16.0, 20, 16.0, 0),
+                    child: StreamBuilder<TypewriterState>(
+                        initialData: TypewriterState(isOpen: true, type: KeyboardType.CAPS),
+                        stream: _keyboardController.stateStream,
+                        builder: (context, snapshot) {
+                          final keyboardShown = snapshot.data.isOpen;
+
+                          return Container(
+                            width: MediaQuery.of(context).size.width,
+                            color: Colors.transparent,
+                            height: (keyboardShown) ? MediaQuery.of(context).size.height - 280 : null,
+                            child: buildInkRibbonEditableText(),
+                          );
+                        }),
                   )
                 ],
               ),
@@ -82,9 +92,10 @@ class _MainScreenState extends State<MainScreen> {
   InkRibbonEditableText buildInkRibbonEditableText() {
     return InkRibbonEditableText(
       key: ValueKey('$xPosition$yPosition'),
-      controller: _controller,
+      controller: _textEditcontroller,
       cursorColor: Colors.black87,
       cursorOpacityAnimates: false,
+      showCursor: true,
       enableInteractiveSelection: false,
       style: kTypewriterTextStyle,
       backgroundCursorColor: Colors.black,
@@ -95,10 +106,5 @@ class _MainScreenState extends State<MainScreen> {
       minLines: 20,
       focusNode: FocusNode(),
     );
-  }
-
-  void _onTextReceived(String text) {
-    _controller.text = _controller.text + text;
-    _controller.selection = TextSelection.fromPosition(TextPosition(offset: _controller.text.length));
   }
 }
