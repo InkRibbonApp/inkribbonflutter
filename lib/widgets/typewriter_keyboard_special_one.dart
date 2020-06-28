@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hackathon/widgets/typewriter_key.dart';
 import 'package:flutter_hackathon/widgets/typewriter_keyboard.dart';
 
-class TypewriterKeyboardLowerCase extends StatelessWidget {
-  TypewriterKeyboardLowerCase({@required this.typewriterKeyboardController});
+class TypewriterKeyboardSpecialOne extends StatelessWidget {
+  TypewriterKeyboardSpecialOne({@required this.typewriterKeyboardController});
 
   final TypewriterKeyboardController typewriterKeyboardController;
 
@@ -24,16 +24,16 @@ class TypewriterKeyboardLowerCase extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildLetterKey('q', 'q'),
-                  _buildLetterKey('w', 'w'),
-                  _buildLetterKey('e', 'e'),
-                  _buildLetterKey('r', 'r'),
-                  _buildLetterKey('t', 't'),
-                  _buildLetterKey('y', 'y'),
-                  _buildLetterKey('u', 'u'),
-                  _buildLetterKey('i', 'i'),
-                  _buildLetterKey('o', 'o'),
-                  _buildLetterKey('p', 'p'),
+                  _buildLetterKey('1', '1'),
+                  _buildLetterKey('2', '2'),
+                  _buildLetterKey('3', '3'),
+                  _buildLetterKey('4', '4'),
+                  _buildLetterKey('5', '5'),
+                  _buildLetterKey('6', '6'),
+                  _buildLetterKey('7', '7'),
+                  _buildLetterKey('8', '8'),
+                  _buildLetterKey('9', '9'),
+                  _buildLetterKey('0', '0'),
                   _buildBackspaceKey(),
                 ],
               ),
@@ -41,15 +41,15 @@ class TypewriterKeyboardLowerCase extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildLetterKey('a', 'a'),
-                  _buildLetterKey('s', 's'),
-                  _buildLetterKey('d', 'd'),
-                  _buildLetterKey('f', 'f'),
-                  _buildLetterKey('g', 'g'),
-                  _buildLetterKey('h', 'h'),
-                  _buildLetterKey('j', 'j'),
-                  _buildLetterKey('k', 'k'),
-                  _buildLetterKey('l', 'l'),
+                  _buildLetterKey('semicolon', ';'),
+                  _buildLetterKey('double_quotes', '"'),
+                  _buildLetterKey('equal', '='),
+                  _buildLetterKey('percent', '%'),
+                  _buildLetterKey('ampersand', '&'),
+                  _buildLetterKey('open_parenthesis', '('),
+                  _buildLetterKey('close_parenthesis', ')'),
+                  _buildLetterKey('underscore', '_'),
+                  _buildLetterKey('at', '@'),
                   _buildEnterKey(),
                 ],
               ),
@@ -58,15 +58,15 @@ class TypewriterKeyboardLowerCase extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _buildShiftKey(),
-                  _buildLetterKey('z', 'z'),
-                  _buildLetterKey('x', 'x'),
-                  _buildLetterKey('c', 'c'),
-                  _buildLetterKey('v', 'v'),
-                  _buildLetterKey('b', 'b'),
-                  _buildLetterKey('n', 'n'),
-                  _buildLetterKey('m', 'm'),
-                  _buildLetterKey('comma', ','),
-                  _buildLetterKey('dot', '.'),
+                  _buildLetterKey('slash', '/'),
+                  _buildLetterKey('colon', ':'),
+                  _buildLetterKey('backtick', '`'),
+                  _buildLetterKey('tick', '\''),
+                  _buildLetterKey('tick', '\''),
+                  _buildLetterKey('plus', '\''),
+                  _buildLetterKey('minus', '-'),
+                  _buildLetterKey('question', '?'),
+                  _buildLetterKey('exclamation', '!'),
                   _buildShiftKey(),
                 ],
               ),
@@ -74,9 +74,9 @@ class TypewriterKeyboardLowerCase extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildThickLetterKey('special_1', () {
+                  _buildThickLetterKey('special_2', () {
                     typewriterKeyboardController
-                        .setTypewriterState(TypewriterState(isOpen: true, type: KeyboardType.SPECIAL_1));
+                        .setTypewriterState(TypewriterState(isOpen: true, type: KeyboardType.SPECIAL_2));
                   }),
                   _buildThickLetterKey('down_arrow', () {
                     typewriterKeyboardController.setTypewriterState(
@@ -121,7 +121,7 @@ class TypewriterKeyboardLowerCase extends StatelessWidget {
   Widget _buildShiftKey() {
     return _buildKey(45, 'shift', 'sounds/typing_sound_soft.wav', () {
       typewriterKeyboardController.setTypewriterState(
-          TypewriterState(isOpen: typewriterKeyboardController.state.isOpen, type: KeyboardType.CAPS));
+          TypewriterState(isOpen: typewriterKeyboardController.state.isOpen, type: KeyboardType.LOWER_CASE));
     });
   }
 
