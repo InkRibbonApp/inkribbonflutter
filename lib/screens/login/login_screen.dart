@@ -4,9 +4,26 @@ import 'package:flutter_hackathon/screens/user/user_landing_screen.dart';
 import 'package:flutter_hackathon/text_styles.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = new GoogleSignIn();
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseAuth.instance.currentUser().then((firebaseUser){
+      if(firebaseUser != null) {
+        Navigator.pushNamed(
+            context, '/user', arguments: UserScreenArguments(firebaseUser)
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +115,8 @@ class LoginScreen extends StatelessWidget {
         _signInWithGoogle()
             .then((FirebaseUser user) => Navigator.pushReplacementNamed(
                 context, '/user',
-                arguments: UserScreenArguments(user)))
+                arguments: UserScreenArguments(user)
+        ))
             .catchError((e) => print(e));
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
