@@ -22,6 +22,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     _keyboardController = TypewriterKeyboardController();
+    _keyboardController.textStream.listen(_onTextReceived);
     _keyboardController.stateStream.listen((event) {
       _textEditcontroller.selection = TextSelection.fromPosition(TextPosition(offset: _textEditcontroller.text.length));
     });
@@ -106,5 +107,10 @@ class _MainScreenState extends State<MainScreen> {
       minLines: 20,
       focusNode: FocusNode(),
     );
+  }
+
+  void _onTextReceived(String text) {
+    _textEditcontroller.text = _textEditcontroller.text + text;
+    _textEditcontroller.selection = TextSelection.fromPosition(TextPosition(offset: _textEditcontroller.text.length));
   }
 }
