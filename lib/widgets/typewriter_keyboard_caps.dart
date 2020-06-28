@@ -22,17 +22,17 @@ class TypewriterKeyboardCaps extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildLetterKey('q-cap'),
-                _buildLetterKey('w-cap'),
-                _buildLetterKey('e-cap'),
-                _buildLetterKey('r-cap'),
-                _buildLetterKey('t-cap'),
-                _buildLetterKey('y-cap'),
-                _buildLetterKey('u-cap'),
-                _buildLetterKey('i-cap'),
-                _buildLetterKey('o-cap'),
-                _buildLetterKey('p-cap'),
-                _buildLetterKey('backspace'),
+                _buildLetterKey('q-cap', 'Q'),
+                _buildLetterKey('w-cap', 'W'),
+                _buildLetterKey('e-cap', 'E'),
+                _buildLetterKey('r-cap', 'R'),
+                _buildLetterKey('t-cap', 'T'),
+                _buildLetterKey('y-cap', 'Y'),
+                _buildLetterKey('u-cap', 'U'),
+                _buildLetterKey('i-cap', 'I'),
+                _buildLetterKey('o-cap', 'O'),
+                _buildLetterKey('p-cap', 'P'),
+                _buildLetterKey('backspace', 'backspace'),
               ],
             ),
           ),
@@ -43,16 +43,16 @@ class TypewriterKeyboardCaps extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildLetterKey('a-cap'),
-                _buildLetterKey('s-cap'),
-                _buildLetterKey('d-cap'),
-                _buildLetterKey('f-cap'),
-                _buildLetterKey('g-cap'),
-                _buildLetterKey('h-cap'),
-                _buildLetterKey('j-cap'),
-                _buildLetterKey('k-cap'),
-                _buildLetterKey('l-cap'),
-                _buildThickLetterKey('enter', null),
+                _buildLetterKey('a-cap', 'A'),
+                _buildLetterKey('s-cap', 'S'),
+                _buildLetterKey('d-cap', 'D'),
+                _buildLetterKey('f-cap', 'F'),
+                _buildLetterKey('g-cap', 'G'),
+                _buildLetterKey('h-cap', 'H'),
+                _buildLetterKey('j-cap', 'J'),
+                _buildLetterKey('k-cap', 'K'),
+                _buildLetterKey('l-cap', 'L'),
+                _buildEnterKey('enter', '\n'),
               ],
             ),
           ),
@@ -63,17 +63,17 @@ class TypewriterKeyboardCaps extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildLetterKey('shift'),
-                _buildLetterKey('z-cap'),
-                _buildLetterKey('x-cap'),
-                _buildLetterKey('c-cap'),
-                _buildLetterKey('v-cap'),
-                _buildLetterKey('b-cap'),
-                _buildLetterKey('n-cap'),
-                _buildLetterKey('m-cap'),
-                _buildLetterKey('comma'),
-                _buildLetterKey('dot'),
-                _buildLetterKey('shift'),
+                _buildLetterKey('shift', 'shift'),
+                _buildLetterKey('z-cap', 'Z'),
+                _buildLetterKey('x-cap', 'X'),
+                _buildLetterKey('c-cap', 'C'),
+                _buildLetterKey('v-cap', 'V'),
+                _buildLetterKey('b-cap', 'B'),
+                _buildLetterKey('n-cap', 'N'),
+                _buildLetterKey('m-cap', 'M'),
+                _buildLetterKey('comma', ','),
+                _buildLetterKey('dot', '.'),
+                _buildLetterKey('shift', 'shift'),
               ],
             ),
           ),
@@ -102,8 +102,16 @@ class TypewriterKeyboardCaps extends StatelessWidget {
     );
   }
 
-  Widget _buildLetterKey(String key) {
-    return _buildKey(50, key, null);
+  Widget _buildLetterKey(String key, String text) {
+    return _buildKey(50, key, () {
+      typewriterKeyboardController.addText(text);
+    });
+  }
+
+  Widget _buildEnterKey(String key, String text) {
+    return _buildKey(80, key, () {
+      typewriterKeyboardController.addText(text);
+    });
   }
 
   Widget _buildThickLetterKey(String key, Function onTap) {

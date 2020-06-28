@@ -14,10 +14,12 @@ class _MainScreenState extends State<MainScreen> {
   TextEditingController _controller = TextEditingController(
     text: '',
   );
+  TypewriterKeyboardController _keyboardController;
 
   @override
   void initState() {
     super.initState();
+    _keyboardController = TypewriterKeyboardController();
     SystemChrome.setPreferredOrientations(
       [
         DeviceOrientation.landscapeRight,
@@ -64,7 +66,9 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
-      bottomSheet: TypewriterKeyboard(),
+      bottomSheet: TypewriterKeyboard(
+        typewriterKeyboardController: _keyboardController,
+      ),
     );
   }
 

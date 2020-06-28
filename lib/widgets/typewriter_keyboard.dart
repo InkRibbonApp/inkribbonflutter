@@ -84,7 +84,7 @@ class _TypewriterKeyboardState extends State<TypewriterKeyboard> {
 
 class TypewriterKeyboardController {
   StreamController<TypewriterState> _streamController = StreamController.broadcast();
-
+  StreamController<String> _streamControllerText = StreamController.broadcast();
   TypewriterState _state;
 
   TypewriterState get state {
@@ -96,7 +96,12 @@ class TypewriterKeyboardController {
     _streamController.add(typewriterState);
   }
 
+  void addText(String text) {
+    _streamControllerText.add(text);
+  }
+
   Stream<TypewriterState> get stateStream => _streamController.stream;
+  Stream<String> get textStream => _streamControllerText.stream;
 
   TypewriterKeyboardController() {
     _state = TypewriterState(isOpen: true, type: KeyboardType.CAPS);
