@@ -8,6 +8,9 @@ import 'package:provider/provider.dart';
 class TypewriterApp extends StatelessWidget {
   static AudioCache player = AudioCache();
 
+  bool shouldShowOnboard;
+  TypewriterApp(this.shouldShowOnboard);
+
   @override
   Widget build(BuildContext context) {
     return Provider<AudioCache>.value(
@@ -16,7 +19,7 @@ class TypewriterApp extends StatelessWidget {
         theme: ThemeData.dark().copyWith(
           bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.transparent),
         ),
-        initialRoute: '/',
+        initialRoute: shouldShowOnboard ? '/' : '/login',
         routes: {
           '/': (context) => OnboardingScreen(),
           '/login': (context) => LoginScreen(),
