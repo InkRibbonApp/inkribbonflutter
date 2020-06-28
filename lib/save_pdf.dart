@@ -10,10 +10,10 @@ Future<File> createPDF(String typeWriterText, String filename) async {
   pdf.addPage(Page(
       pageFormat: PdfPageFormat.a4,
       theme: Theme.withFont(
-        base: Font.ttf(await rootBundle.load("assets/uwch.ttf")),
-        bold: Font.ttf(await rootBundle.load("assets/uwch.ttf")),
-        italic: Font.ttf(await rootBundle.load("assets/uwch.ttf")),
-        boldItalic: Font.ttf(await rootBundle.load("assets/uwch.ttf")),
+        base: Font.ttf(await rootBundle.load("assets/fonts/uwch.ttf")),
+        bold: Font.ttf(await rootBundle.load("assets/fonts/uwch.ttf")),
+        italic: Font.ttf(await rootBundle.load("assets/fonts/uwch.ttf")),
+        boldItalic: Font.ttf(await rootBundle.load("assets/fonts/uwch.ttf")),
       ),
       build: (Context context) {
         return Center(
