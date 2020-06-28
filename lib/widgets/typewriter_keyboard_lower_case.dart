@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hackathon/widgets/typewriter_key.dart';
 import 'package:flutter_hackathon/widgets/typewriter_keyboard.dart';
 
-class TypewriterKeyboardCaps extends StatelessWidget {
-  TypewriterKeyboardCaps({@required this.typewriterKeyboardController});
+class TypewriterKeyboardLowerCase extends StatelessWidget {
+  TypewriterKeyboardLowerCase({@required this.typewriterKeyboardController});
 
   final TypewriterKeyboardController typewriterKeyboardController;
 
@@ -24,16 +24,16 @@ class TypewriterKeyboardCaps extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildLetterKey('q-cap', 'Q'),
-                  _buildLetterKey('w-cap', 'W'),
-                  _buildLetterKey('e-cap', 'E'),
-                  _buildLetterKey('r-cap', 'R'),
-                  _buildLetterKey('t-cap', 'T'),
-                  _buildLetterKey('y-cap', 'Y'),
-                  _buildLetterKey('u-cap', 'U'),
-                  _buildLetterKey('i-cap', 'I'),
-                  _buildLetterKey('o-cap', 'O'),
-                  _buildLetterKey('p-cap', 'P'),
+                  _buildLetterKey('q', 'q'),
+                  _buildLetterKey('w', 'w'),
+                  _buildLetterKey('e', 'e'),
+                  _buildLetterKey('r', 'r'),
+                  _buildLetterKey('t', 't'),
+                  _buildLetterKey('y', 'y'),
+                  _buildLetterKey('u', 'u'),
+                  _buildLetterKey('i', 'i'),
+                  _buildLetterKey('o', 'o'),
+                  _buildLetterKey('p', 'p'),
                   _buildBackspaceKey(),
                 ],
               ),
@@ -41,15 +41,15 @@ class TypewriterKeyboardCaps extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildLetterKey('a-cap', 'A'),
-                  _buildLetterKey('s-cap', 'S'),
-                  _buildLetterKey('d-cap', 'D'),
-                  _buildLetterKey('f-cap', 'F'),
-                  _buildLetterKey('g-cap', 'G'),
-                  _buildLetterKey('h-cap', 'H'),
-                  _buildLetterKey('j-cap', 'J'),
-                  _buildLetterKey('k-cap', 'K'),
-                  _buildLetterKey('l-cap', 'L'),
+                  _buildLetterKey('a', 'a'),
+                  _buildLetterKey('s', 's'),
+                  _buildLetterKey('d', 'd'),
+                  _buildLetterKey('f', 'f'),
+                  _buildLetterKey('g', 'g'),
+                  _buildLetterKey('h', 'h'),
+                  _buildLetterKey('j', 'j'),
+                  _buildLetterKey('k', 'k'),
+                  _buildLetterKey('l', 'l'),
                   _buildEnterKey(),
                 ],
               ),
@@ -58,13 +58,13 @@ class TypewriterKeyboardCaps extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _buildShiftKey(),
-                  _buildLetterKey('z-cap', 'Z'),
-                  _buildLetterKey('x-cap', 'X'),
-                  _buildLetterKey('c-cap', 'C'),
-                  _buildLetterKey('v-cap', 'V'),
-                  _buildLetterKey('b-cap', 'B'),
-                  _buildLetterKey('n-cap', 'N'),
-                  _buildLetterKey('m-cap', 'M'),
+                  _buildLetterKey('z', 'z'),
+                  _buildLetterKey('x', 'x'),
+                  _buildLetterKey('c', 'c'),
+                  _buildLetterKey('v', 'v'),
+                  _buildLetterKey('b', 'b'),
+                  _buildLetterKey('n', 'n'),
+                  _buildLetterKey('m', ''),
                   _buildLetterKey('comma', ','),
                   _buildLetterKey('dot', '.'),
                   _buildShiftKey(),
@@ -118,7 +118,7 @@ class TypewriterKeyboardCaps extends StatelessWidget {
   Widget _buildShiftKey() {
     return _buildKey(45, 'shift', 'sounds/typing_sound_soft.wav', () {
       typewriterKeyboardController.setTypewriterState(
-          TypewriterState(isOpen: typewriterKeyboardController.state.isOpen, type: KeyboardType.LOWER_CASE));
+          TypewriterState(isOpen: typewriterKeyboardController.state.isOpen, type: KeyboardType.CAPS));
     });
   }
 

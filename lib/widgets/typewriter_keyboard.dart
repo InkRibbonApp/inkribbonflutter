@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_hackathon/widgets/typewriter_keyboard_caps.dart';
 import 'package:flutter_hackathon/widgets/typewriter_keyboard_hidden.dart';
+import 'package:flutter_hackathon/widgets/typewriter_keyboard_lower_case.dart';
 
 class TypewriterKeyboard extends StatefulWidget {
   TypewriterKeyboard({this.typewriterKeyboardController});
@@ -60,41 +61,39 @@ class _TypewriterKeyboardState extends State<TypewriterKeyboard> {
   }
 
   Widget _buildlowerCaseKeyboard() {
-    return SizedBox(
-      height: 200,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Container(
-            color: Colors.red,
-            child: FlatButton(
-              child: Text('close it'),
-              onPressed: () {
-                typewriterKeyboardController.streamController.add(
-                  TypewriterState(isOpen: false, type: KeyboardType.CAPS),
-                );
-              },
-            ),
-          )
-        ],
-      ),
+    return TypewriterKeyboardLowerCase(
+      typewriterKeyboardController: typewriterKeyboardController,
     );
   }
 }
 
 class TypewriterKeyboardController {
-  StreamController<TypewriterState> streamController = StreamController.broadcast();
-
+  StreamController<TypewriterState> _streamController = StreamController.broadcast();
+  StreamController<String> _streamControllerText = StreamController.broadcast();
   TypewriterState _state;
 
   TypewriterState get state {
     return _state;
   }
 
-  Stream<TypewriterState> get stateStream => streamController.stream;
+  void setTypewriterState(TypewriterState typewriterState) {
+    _state = typewriterState;
+    _streamController.add(typewriterState);
+  }
+
+  void addText(String text) {
+    _streamControllerText.add(text);
+  }
+
+  Stream<TypewriterState> get stateStream => _streamController.stream;
+  Stream<String> get textStream => _streamControllerText.stream;
+
+  TypewriterKeyboardController() {
+    _state = TypewriterState(isOpen: true, type: KeyboardType.CAPS);
+  }
 
   void dispose() {
-    streamController.close();
+    _streamController.close();
   }
 }
 
