@@ -4,6 +4,8 @@ import 'package:flutter_hackathon/screens/onboarding/onboarding_page_three.dart'
 import 'package:flutter_hackathon/screens/onboarding/onboarding_page_two.dart';
 import 'package:page_view_indicator/page_view_indicator.dart';
 
+import '../../text_styles.dart';
+
 class OnboardingScreen extends StatefulWidget {
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();
@@ -19,6 +21,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
       child: Scaffold(
         body: Stack(
           children: [
+            Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: Image(fit: BoxFit.fill, image: AssetImage('assets/paper/paper.png'))),
             PageView(
               physics: BouncingScrollPhysics(),
               controller: _pageController,
@@ -75,14 +81,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
     final pageIndex = _pageIndexNotifier.value;
     if (pageIndex == 2) {
       return FlatButton(
-        child: Text('NEXT'),
+        child: Text(
+          'NEXT',
+          style: kOnboardingButtonTextStyle,
+        ),
         onPressed: () {
           Navigator.pushReplacementNamed(context, '/login');
         },
       );
     } else {
       return FlatButton(
-        child: Text('SKIP'),
+        child: Text(
+          'SKIP',
+          style: kOnboardingButtonTextStyle,
+        ),
         onPressed: () {
           setState(() {
             _pageController.animateToPage(2, duration: Duration(milliseconds: 200), curve: Curves.easeIn);

@@ -18,10 +18,9 @@ class TypewriterApp extends StatelessWidget {
       value: player,
       child: MaterialApp(
         theme: ThemeData.dark().copyWith(
-          bottomSheetTheme:
-              BottomSheetThemeData(backgroundColor: Colors.transparent),
+          bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.transparent),
         ),
-        initialRoute: shouldShowOnboard ? '/' : '/login',
+        initialRoute: '/',
         routes: {
           '/': (context) => OnboardingScreen(),
           '/login': (context) => LoginScreen(),
