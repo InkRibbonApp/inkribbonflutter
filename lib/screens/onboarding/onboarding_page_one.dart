@@ -3,6 +3,7 @@ import 'package:flutter_hackathon/text_styles.dart';
 
 class OnboardingPageOne extends StatelessWidget {
   final String title = 'Type away your thoughts and ideas';
+  final String mainImage = 'assets/onboarding/typewriter-black.png';
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class OnboardingPageOne extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            'assets/onboarding/typewriter.png',
+            mainImage,
             width: 150,
             height: 200,
           ),
@@ -68,7 +69,7 @@ class OnboardingPageOne extends StatelessWidget {
       child: Column(
         children: [
           Image.asset(
-            'assets/onboarding/typewriter.png',
+            mainImage,
             width: 200,
             height: 300,
           ),

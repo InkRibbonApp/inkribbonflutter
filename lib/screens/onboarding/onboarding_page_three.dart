@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hackathon/text_styles.dart';
 
 class OnboardingPageThree extends StatelessWidget {
-  final String title = 'Save and export your ideas across different devices';
+  final String title = 'Save and export your ideas across different devices, anytime and anywhere';
+  final String mainImage = 'assets/onboarding/sync.png';
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +44,9 @@ class OnboardingPageThree extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            'assets/onboarding/darkmode.png',
-            width: 150,
-            height: 200,
+            mainImage,
+            width: 250,
+            height: 300,
           ),
           SizedBox(
             width: 20,
@@ -68,12 +69,9 @@ class OnboardingPageThree extends StatelessWidget {
       child: Column(
         children: [
           Image.asset(
-            'assets/onboarding/darkmode.png',
-            width: 200,
+            mainImage,
+            width: 250,
             height: 300,
-          ),
-          SizedBox(
-            height: 10,
           ),
           Text(
             title,

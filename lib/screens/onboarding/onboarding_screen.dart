@@ -31,6 +31,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
       child: Scaffold(
         body: Stack(
           children: [
+            Container(
+              color: Color(0xFFBF9F5F),
+            ),
             PageView(
               physics: BouncingScrollPhysics(),
               controller: _pageController,

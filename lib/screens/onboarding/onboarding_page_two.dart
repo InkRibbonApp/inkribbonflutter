@@ -3,6 +3,7 @@ import 'package:flutter_hackathon/text_styles.dart';
 
 class OnboardingPageTwo extends StatelessWidget {
   final String title = 'Paperless application to care for the environment';
+  final String mainImage = 'assets/onboarding/trash-black.png';
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class OnboardingPageTwo extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            'assets/onboarding/trash.png',
+            mainImage,
             width: 150,
             height: 200,
           ),
@@ -68,7 +69,7 @@ class OnboardingPageTwo extends StatelessWidget {
       child: Column(
         children: [
           Image.asset(
-            'assets/onboarding/trash.png',
+            mainImage,
             width: 200,
             height: 300,
           ),
