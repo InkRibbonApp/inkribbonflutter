@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -9,14 +10,16 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="flutter_hackathon">
+  <meta name="google-signin-client_id" content="inkribbon-cd2f7.apps.googleusercontent.com">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+  <link rel="shortcut icon" type="image/png" href="favicon.png" />
 
   <title>flutter_hackathon</title>
   <link rel="manifest" href="manifest.json">
 </head>
+
 <body>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
@@ -27,7 +30,19 @@
         navigator.serviceWorker.register('flutter_service_worker.js');
       });
     }
+    const firebaseConfig = {
+      apiKey: "AIzaSyBD10IHvnOJoKrLAoafdhioN7xuV4mse0k",
+      authDomain: "inkribbon-cd2f7.firebaseapp.com",
+      databaseURL: "https://inkribbon-cd2f7.firebaseio.com",
+      projectId: "inkribbon-cd2f7",
+      storageBucket: "inkribbon-cd2f7.appspot.com",
+      messagingSenderId: "3301197304",
+      appId: "1:3301197304:web:658f096c323f59cd9b820d",
+      measurementId: "G-6Y23YM8X5Z"
+    };
   </script>
+
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
+
 </html>
