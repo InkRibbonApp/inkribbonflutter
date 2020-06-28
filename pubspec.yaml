@@ -42,6 +42,9 @@ flutter:
     - family: Underwood
       fonts:
         - asset: assets/fonts/uwch.ttf
+    - family: Bohemian
+      fonts:
+        - asset: assets/fonts/bohemian.ttf
 
   assets:
     - assets/paper/
