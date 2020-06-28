@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hackathon/widgets/typewriter_keyboard_caps.dart';
 
 class TypewriterKeyboard extends StatefulWidget {
   TypewriterKeyboard({this.typewriterKeyboardController});
@@ -68,24 +69,8 @@ class _TypewriterKeyboardState extends State<TypewriterKeyboard> {
   }
 
   Widget _buildCapsKeyboard() {
-    return SizedBox(
-      height: 200,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Container(
-            color: Colors.red,
-            child: FlatButton(
-              child: Text('close it'),
-              onPressed: () {
-                typewriterKeyboardController.streamController.add(
-                  TypewriterState(isOpen: false, type: KeyboardType.CAPS),
-                );
-              },
-            ),
-          )
-        ],
-      ),
+    return TypewriterKeyboardCaps(
+      typewriterKeyboardController: typewriterKeyboardController,
     );
   }
 
