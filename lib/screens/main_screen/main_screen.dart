@@ -41,21 +41,24 @@ class _MainScreenState extends State<MainScreen> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Expanded(
-            child: Stack(
-              children: [
-                Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    child: _buildBackgroundImage()),
-                Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    color: Colors.transparent,
-                    child: buildInkRibbonEditableText(),
-                  ),
-                )
-              ],
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(40.0, 10.0, 40.0, 10.0),
+              child: Stack(
+                children: [
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      child: _buildBackgroundImage()),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16.0, 30.0, 16.0, 0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      color: Colors.transparent,
+                      child: buildInkRibbonEditableText(),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ],
@@ -75,7 +78,7 @@ class _MainScreenState extends State<MainScreen> {
       cursorOpacityAnimates: false,
       enableInteractiveSelection: false,
       style: TextStyle(
-          fontStyle: FontStyle.normal, fontSize: 30.0, color: Colors.black),
+          fontStyle: FontStyle.normal, fontSize: 20.0, color: Colors.black),
       backgroundCursorColor: Colors.black,
       hideSoftKeyboard: true,
       keyboardType: TextInputType.multiline,
