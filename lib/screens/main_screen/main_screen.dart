@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,9 +10,10 @@ import 'package:flutter_hackathon/widgets/typewriter_keyboard.dart';
 import '../../text_styles.dart';
 
 class MainScreenArguments {
+  final FirebaseUser user;
   final String file;
 
-  MainScreenArguments(this.file);
+  MainScreenArguments(this.user, this.file);
 }
 
 class MainScreen extends StatefulWidget {
@@ -26,10 +29,12 @@ class _MainScreenState extends State<MainScreen> {
     text: '',
   );
   TypewriterKeyboardController _keyboardController;
+  String fileName = 'Note-${DateTime.now().toIso8601String()}';
 
   @override
   void initState() {
     super.initState();
+
     _keyboardController = TypewriterKeyboardController();
     _keyboardController.textStream.listen(_onTextReceived);
     _keyboardController.stateStream.listen((event) {
@@ -42,6 +47,13 @@ class _MainScreenState extends State<MainScreen> {
         DeviceOrientation.landscapeLeft,
       ],
     );
+
+    Timer.periodic(Duration(seconds: 5), (Timer t) => _autoSave());
+  }
+
+  void _autoSave() {
+    final MainScreenArguments args = ModalRoute.of(context).settings.arguments;
+    repo.uploadNote(_textEditcontroller.text, fileName, args.user);
   }
 
   @override
@@ -56,7 +68,8 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final MainScreenArguments args = ModalRoute.of(context).settings.arguments;
-    if (args.file != null) {
+    if (args != null && args.file != null) {
+      fileName = args.file;
       repo.getNote(args.file).then((text) => _textEditcontroller.text = text);
     }
 

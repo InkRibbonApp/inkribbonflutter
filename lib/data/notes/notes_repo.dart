@@ -19,14 +19,15 @@ Usage:
 class NotesRepo {
   Future<void> uploadNote(
       String content, String filename, FirebaseUser user) async {
-    final file = await _writeFile(content, filename);
+    final name = filename.split("/").last;
+    final file = await _writeFile(content, name);
 
     StorageReference storageReference;
     if (filename == null) {
       filename = content.hashCode.toString();
     }
     storageReference =
-        FirebaseStorage.instance.ref().child("notes/${user.uid}/$filename");
+        FirebaseStorage.instance.ref().child("notes/${user.uid}/$name");
 
     final StorageUploadTask uploadTask = storageReference.putFile(file);
     final StorageTaskSnapshot downloadUrl = (await uploadTask.onComplete);

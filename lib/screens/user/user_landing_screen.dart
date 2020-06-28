@@ -38,7 +38,8 @@ class _UserLandingScreenState extends State<UserLandingScreen> {
           children: [
             RaisedButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/main');
+                Navigator.pushReplacementNamed(context, '/main',
+                    arguments: MainScreenArguments(args.user, null));
               },
               child: Text(
                 'New file >>',
@@ -58,7 +59,8 @@ class _UserLandingScreenState extends State<UserLandingScreen> {
                         return GestureDetector(
                           onTap: () {
                             Navigator.pushReplacementNamed(context, '/main',
-                                arguments: MainScreenArguments(file));
+                                arguments:
+                                    MainScreenArguments(args.user, file));
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(20.0),
