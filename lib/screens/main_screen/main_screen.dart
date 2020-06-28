@@ -110,7 +110,11 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   void _onTextReceived(String text) {
-    _textEditcontroller.text = _textEditcontroller.text + text;
+    if (text == 'backspace') {
+      _textEditcontroller.text = _textEditcontroller.text.substring(0, _textEditcontroller.text.length - 1);
+    } else {
+      _textEditcontroller.text = _textEditcontroller.text + text;
+    }
     _textEditcontroller.selection = TextSelection.fromPosition(TextPosition(offset: _textEditcontroller.text.length));
   }
 }
