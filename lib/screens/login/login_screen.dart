@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hackathon/screens/user/user_landing_screen.dart';
 import 'package:flutter_hackathon/text_styles.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -95,8 +96,9 @@ class LoginScreen extends StatelessWidget {
       splashColor: Colors.grey,
       onPressed: () {
         _signInWithGoogle()
-            .then((FirebaseUser user) =>
-                Navigator.pushReplacementNamed(context, '/main'))
+            .then((FirebaseUser user) => Navigator.pushReplacementNamed(
+                context, '/user',
+                arguments: UserScreenArguments(user)))
             .catchError((e) => print(e));
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

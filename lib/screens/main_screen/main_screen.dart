@@ -5,6 +5,12 @@ import 'package:flutter_hackathon/widgets/typewriter_keyboard.dart';
 
 import '../../text_styles.dart';
 
+class MainScreenArguments {
+  final String file;
+
+  MainScreenArguments(this.file);
+}
+
 class MainScreen extends StatefulWidget {
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -24,7 +30,8 @@ class _MainScreenState extends State<MainScreen> {
     _keyboardController = TypewriterKeyboardController();
     _keyboardController.textStream.listen(_onTextReceived);
     _keyboardController.stateStream.listen((event) {
-      _textEditcontroller.selection = TextSelection.fromPosition(TextPosition(offset: _textEditcontroller.text.length));
+      _textEditcontroller.selection = TextSelection.fromPosition(
+          TextPosition(offset: _textEditcontroller.text.length));
     });
     SystemChrome.setPreferredOrientations(
       [
@@ -61,7 +68,8 @@ class _MainScreenState extends State<MainScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16.0, 20, 16.0, 0),
                     child: StreamBuilder<TypewriterState>(
-                        initialData: TypewriterState(isOpen: true, type: KeyboardType.CAPS),
+                        initialData: TypewriterState(
+                            isOpen: true, type: KeyboardType.CAPS),
                         stream: _keyboardController.stateStream,
                         builder: (context, snapshot) {
                           final keyboardShown = snapshot.data.isOpen;
@@ -69,7 +77,9 @@ class _MainScreenState extends State<MainScreen> {
                           return Container(
                             width: MediaQuery.of(context).size.width,
                             color: Colors.transparent,
-                            height: (keyboardShown) ? MediaQuery.of(context).size.height - 280 : null,
+                            height: (keyboardShown)
+                                ? MediaQuery.of(context).size.height - 280
+                                : null,
                             child: buildInkRibbonEditableText(),
                           );
                         }),
@@ -111,10 +121,12 @@ class _MainScreenState extends State<MainScreen> {
 
   void _onTextReceived(String text) {
     if (text == 'backspace') {
-      _textEditcontroller.text = _textEditcontroller.text.substring(0, _textEditcontroller.text.length - 1);
+      _textEditcontroller.text = _textEditcontroller.text
+          .substring(0, _textEditcontroller.text.length - 1);
     } else {
       _textEditcontroller.text = _textEditcontroller.text + text;
     }
-    _textEditcontroller.selection = TextSelection.fromPosition(TextPosition(offset: _textEditcontroller.text.length));
+    _textEditcontroller.selection = TextSelection.fromPosition(
+        TextPosition(offset: _textEditcontroller.text.length));
   }
 }

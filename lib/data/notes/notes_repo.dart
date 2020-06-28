@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -31,7 +32,7 @@ class NotesRepo {
     print("URL is $url");
   }
 
-  Future<List<String>> getListOfNotes() async {
+  Future<List<String>> getListOfNotes(FirebaseUser user) async {
     final StorageReference _storageReference =
         FirebaseStorage.instance.ref().child('notes');
 
