@@ -10,9 +10,9 @@ InkRibbion is a Flutter app with a retro typewritter feel of writing and sharing
 
 <img src="assets/gifs/onboarding-video.gif" height="350"><img src="assets/gifs/typewriter.gif" height="350">
 
-Designed the app to the look and feel of a real typewritter.
-Every key stroke feels like typing in the old days.
-Paperless application to care for the environment
-Save and export your ideas across different devices, anytime and anywhere
-Used firebase storage and authentication for saving and syncing.
-Optimized for iOS, Android and Web
+- Designed the app to the look and feel of a real typewritter.
+- Every key stroke feels like typing in the old days.
+- Paperless application to care for the environment
+- Save and export your ideas across different devices, anytime and anywhere
+- Used firebase storage and authentication for saving and syncing.
+- Optimized for iOS, Android and Web
