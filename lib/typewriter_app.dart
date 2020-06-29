@@ -9,8 +9,9 @@ import 'package:provider/provider.dart';
 class TypewriterApp extends StatelessWidget {
   static AudioCache player = AudioCache();
 
-  bool shouldShowOnboard;
   TypewriterApp(this.shouldShowOnboard);
+
+  final bool shouldShowOnboard;
 
   @override
   Widget build(BuildContext context) {
