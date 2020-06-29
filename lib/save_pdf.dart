@@ -11,8 +11,10 @@ Future<File> createPDF(String typeWriterText, String filename) async {
       build: (Context context) {
         return Text(typeWriterText, style: TextStyle(fontSize: 22, font: Font.courierBold())); // Center
       }));
-  var output = await getTemporaryDirectory();
-  final file = File('${output.path}/${filename}.pdf');
-  file.writeAsBytesSync(pdf.save(), mode: FileMode.append);
+  final output = await getTemporaryDirectory();
+  final file = File('${output.path}/$filename.pdf');
+
+  file.createSync(recursive: true);
+  file.writeAsBytesSync(pdf.save(), mode: FileMode.write, flush: true);
   return file;
 }
