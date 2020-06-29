@@ -133,7 +133,6 @@ class TypewriterKeyboardLowerCase extends StatelessWidget {
 
   Widget _buildKey(double width, String key, String soundAsset, Function onTap) {
     return TypewriterKey(
-      key: UniqueKey(),
       height: 45,
       width: width,
       padding: EdgeInsets.only(left: 4, right: 4, bottom: 4),
