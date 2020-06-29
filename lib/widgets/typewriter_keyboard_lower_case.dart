@@ -137,7 +137,7 @@ class TypewriterKeyboardLowerCase extends StatelessWidget {
       height: 45,
       width: width,
       padding: EdgeInsets.only(left: 4, right: 4, bottom: 4),
-      assetName: 'assets/keyboard/$key.png',
+      assetName: 'assets/keyboard_round/$key.png',
       soundAsset: soundAsset,
       onTap: onTap,
     );

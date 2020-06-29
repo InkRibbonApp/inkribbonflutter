@@ -19,7 +19,7 @@ class TypewriterKeyboardHidden extends StatelessWidget {
               height: 50,
               width: 80,
               padding: EdgeInsets.all(0),
-              assetName: 'assets/keyboard/up_arrow.png',
+              assetName: 'assets/keyboard_round/up_arrow.png',
               soundAsset: 'sounds/typing_sound_soft.wav',
               onTap: () {
                 typewriterKeyboardController

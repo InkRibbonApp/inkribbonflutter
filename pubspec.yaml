@@ -52,5 +52,6 @@ flutter:
     - assets/onboarding/
     - assets/login/
     - assets/keyboard/
+    - assets/keyboard_round/
     - assets/logo/
     - assets/sounds/
