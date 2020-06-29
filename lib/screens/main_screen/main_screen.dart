@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hackathon/data/notes/notes_repo.dart';
-import 'package:flutter_hackathon/widgets/ink_ribbon_editable_text.dart';
 import 'package:flutter_hackathon/widgets/typewriter_keyboard.dart';
 import 'package:provider/provider.dart';
 
@@ -143,8 +142,8 @@ class _MainScreenState extends State<MainScreen> {
     return Image(fit: BoxFit.fill, image: AssetImage('assets/paper/paper.png'));
   }
 
-  InkRibbonEditableText buildInkRibbonEditableText() {
-    return InkRibbonEditableText(
+  EditableText buildInkRibbonEditableText() {
+    return EditableText(
       key: ValueKey('$_xPosition$_yPosition'),
       controller: _textEditcontroller,
       cursorColor: Colors.black87,
@@ -153,7 +152,6 @@ class _MainScreenState extends State<MainScreen> {
       enableInteractiveSelection: false,
       style: kTypewriterTextStyle,
       backgroundCursorColor: Colors.black,
-      hideSoftKeyboard: true,
       autofocus: true,
       keyboardType: TextInputType.multiline,
       maxLines: null,
