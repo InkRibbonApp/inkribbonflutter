@@ -59,7 +59,7 @@ class _MainScreenState extends State<MainScreen> {
 
   void _autoSave() {
     final MainScreenArguments args = ModalRoute.of(context).settings.arguments;
-    if (args != null && args.file != null && args.user != null) {
+    if (args != null && _fileName != null && args.user != null) {
       _notesRepo.uploadNote(_textEditcontroller.text, _fileName, args.user);
     }
   }
@@ -107,7 +107,8 @@ class _MainScreenState extends State<MainScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16.0, 20, 16.0, 0),
                     child: StreamBuilder<TypewriterState>(
-                        initialData: TypewriterState(isOpen: true, type: KeyboardType.CAPS),
+                        initialData: TypewriterState(
+                            isOpen: true, type: KeyboardType.CAPS),
                         stream: _keyboardController.stateStream,
                         builder: (context, snapshot) {
                           final keyboardShown = snapshot.data.isOpen;
@@ -118,7 +119,9 @@ class _MainScreenState extends State<MainScreen> {
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               color: Colors.transparent,
-                              height: (keyboardShown) ? MediaQuery.of(context).size.height - 310 : null,
+                              height: (keyboardShown)
+                                  ? MediaQuery.of(context).size.height - 310
+                                  : null,
                               child: buildInkRibbonEditableText(),
                             ),
                           );
@@ -155,15 +158,26 @@ class _MainScreenState extends State<MainScreen> {
       keyboardType: TextInputType.multiline,
       maxLines: null,
       minLines: 20,
+      readOnly: true,
       focusNode: FocusNode(),
     );
   }
 
   void _handleKey(RawKeyEvent key) {
     if (key.runtimeType == RawKeyDownEvent) {
-      final keyName = key.data.keyLabel;
-      _playSoundAccordingToKeyName(keyName);
-      _onTextReceived(keyName);
+      if (key.logicalKey.debugName == "Backspace") {
+        _playSoundAccordingToKeyName("backspace");
+        _onTextReceived("backspace");
+      } else if (key.logicalKey.debugName == "Enter") {
+        _playSoundAccordingToKeyName("enter");
+        _onTextReceived("enter");
+      } else if (key.logicalKey.debugName == "Tab") {
+        _playSoundAccordingToKeyName(key.data.keyLabel);
+        _onTextReceived("tab");
+      } else if (key.data.keyLabel.length <= 2) {
+        _playSoundAccordingToKeyName(key.data.keyLabel);
+        _onTextReceived(key.data.keyLabel);
+      }
     }
   }
 
@@ -172,7 +186,8 @@ class _MainScreenState extends State<MainScreen> {
 
     switch (textValue) {
       case 'backspace':
-        _textEditcontroller.text = _textEditcontroller.text.substring(0, _textEditcontroller.text.length - 1);
+        _textEditcontroller.text = _textEditcontroller.text
+            .substring(0, _textEditcontroller.text.length - 1);
         break;
       case 'enter':
         _textEditcontroller.text = _textEditcontroller.text + '\n';
@@ -180,40 +195,12 @@ class _MainScreenState extends State<MainScreen> {
       case 'tab':
         _textEditcontroller.text = _textEditcontroller.text + '  ';
         break;
-      case 'meta':
-      case 'alt':
-      case 'shift':
-      case 'control':
-      case 'arrowup':
-      case 'arrowdown':
-      case 'arrowleft':
-      case 'arrowright':
-      case 'delete':
-      case 'end':
-      case 'pagedown':
-      case 'pageup':
-      case 'home':
-      case 'esc':
-      case 'F1':
-      case 'F2':
-      case 'F3':
-      case 'F4':
-      case 'F5':
-      case 'F6':
-      case 'F7':
-      case 'F8':
-      case 'F9':
-      case 'F10':
-      case 'F11':
-      case 'F12':
-      case 'F13':
-      case 'F14':
-        break;
       default:
         _textEditcontroller.text = _textEditcontroller.text + text;
     }
 
-    _textEditcontroller.selection = TextSelection.fromPosition(TextPosition(offset: _textEditcontroller.text.length));
+    _textEditcontroller.selection = TextSelection.fromPosition(
+        TextPosition(offset: _textEditcontroller.text.length));
   }
 
   void _playSoundAccordingToKeyName(String keyName) {
