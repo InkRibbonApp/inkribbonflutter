@@ -76,6 +76,11 @@ class _MainScreenState extends State<MainScreen> {
     }
 
     return Scaffold(
+      appBar: AppBar(
+        leading: BackButton(),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -99,7 +104,7 @@ class _MainScreenState extends State<MainScreen> {
                           return Container(
                             width: MediaQuery.of(context).size.width,
                             color: Colors.transparent,
-                            height: (keyboardShown) ? MediaQuery.of(context).size.height - 280 : null,
+                            height: (keyboardShown) ? MediaQuery.of(context).size.height - 310 : null,
                             child: buildInkRibbonEditableText(),
                           );
                         }),
