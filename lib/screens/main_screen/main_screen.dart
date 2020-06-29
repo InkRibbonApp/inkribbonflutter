@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:audioplayers/audio_cache.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hackathon/data/notes/notes_repo.dart';
 import 'package:flutter_hackathon/widgets/ink_ribbon_editable_text.dart';
 import 'package:flutter_hackathon/widgets/typewriter_keyboard.dart';
+import 'package:provider/provider.dart';
 
 import '../../text_styles.dart';
 
@@ -31,10 +33,12 @@ class _MainScreenState extends State<MainScreen> {
   );
   TypewriterKeyboardController _keyboardController;
   String _fileName = 'Note-${DateTime.now().toIso8601String()}';
+  AudioCache _audioPlayer;
 
   @override
   void initState() {
     super.initState();
+    _audioPlayer = Provider.of<AudioCache>(context, listen: false);
 
     _keyboardController = TypewriterKeyboardController();
     _keyboardController.textStream.listen(_onTextReceived);
@@ -157,16 +161,68 @@ class _MainScreenState extends State<MainScreen> {
 
   void _handleKey(RawKeyEvent key) {
     if (key.runtimeType == RawKeyDownEvent) {
-      _onTextReceived(key.data.keyLabel);
+      final keyName = key.data.keyLabel;
+      _playSoundAccordingToKeyName(keyName);
+      _onTextReceived(keyName);
     }
   }
 
   void _onTextReceived(String text) {
-    if (text == 'backspace') {
-      _textEditcontroller.text = _textEditcontroller.text.substring(0, _textEditcontroller.text.length - 1);
-    } else {
-      _textEditcontroller.text = _textEditcontroller.text + text;
+    final textValue = text.toLowerCase();
+
+    switch (textValue) {
+      case 'backspace':
+        _textEditcontroller.text = _textEditcontroller.text.substring(0, _textEditcontroller.text.length - 1);
+        break;
+      case 'enter':
+        _textEditcontroller.text = _textEditcontroller.text + '\n';
+        break;
+      case 'tab':
+        _textEditcontroller.text = _textEditcontroller.text + '  ';
+        break;
+      case 'meta':
+      case 'alt':
+      case 'shift':
+      case 'control':
+      case 'arrowup':
+      case 'arrowdown':
+      case 'arrowleft':
+      case 'arrowright':
+      case 'delete':
+      case 'end':
+      case 'pagedown':
+      case 'pageup':
+      case 'home':
+      case 'esc':
+      case 'F1':
+      case 'F2':
+      case 'F3':
+      case 'F4':
+      case 'F5':
+      case 'F6':
+      case 'F7':
+      case 'F8':
+      case 'F9':
+      case 'F10':
+      case 'F11':
+      case 'F12':
+      case 'F13':
+      case 'F14':
+        break;
+      default:
+        _textEditcontroller.text = _textEditcontroller.text + text;
     }
+
     _textEditcontroller.selection = TextSelection.fromPosition(TextPosition(offset: _textEditcontroller.text.length));
+  }
+
+  void _playSoundAccordingToKeyName(String keyName) {
+    if (keyName.toLowerCase() == 'enter') {
+      _audioPlayer.play('sounds/ding_sound.wav');
+    } else if (keyName.toLowerCase() == 'backspace') {
+      _audioPlayer.play('sounds/typing_sound_soft.wav');
+    } else {
+      _audioPlayer.play('sounds/typing_sound.wav');
+    }
   }
 }
