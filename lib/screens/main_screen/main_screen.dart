@@ -23,14 +23,15 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final repo = NotesRepo();
-  double xPosition = 0;
-  double yPosition = 0;
+  final _notesRepo = NotesRepo();
+  double _xPosition = 0;
+  double _yPosition = 0;
   TextEditingController _textEditcontroller = TextEditingController(
     text: '',
   );
   TypewriterKeyboardController _keyboardController;
-  String fileName = 'Note-${DateTime.now().toIso8601String()}';
+  String _fileName = 'Note-${DateTime.now().toIso8601String()}';
+  final _textNode = FocusNode();
 
   @override
   void initState() {
@@ -39,7 +40,8 @@ class _MainScreenState extends State<MainScreen> {
     _keyboardController = TypewriterKeyboardController();
     _keyboardController.textStream.listen(_onTextReceived);
     _keyboardController.stateStream.listen((event) {
-      _textEditcontroller.selection = TextSelection.fromPosition(TextPosition(offset: _textEditcontroller.text.length));
+      _textEditcontroller.selection = TextSelection.fromPosition(
+          TextPosition(offset: _textEditcontroller.text.length));
     });
     SystemChrome.setPreferredOrientations(
       [
@@ -54,7 +56,7 @@ class _MainScreenState extends State<MainScreen> {
   void _autoSave() {
     final MainScreenArguments args = ModalRoute.of(context).settings.arguments;
     if (args != null && args.file != null && args.user != null) {
-      repo.uploadNote(_textEditcontroller.text, fileName, args.user);
+      _notesRepo.uploadNote(_textEditcontroller.text, _fileName, args.user);
     }
   }
 
@@ -71,8 +73,10 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     final MainScreenArguments args = ModalRoute.of(context).settings.arguments;
     if (args != null && args.file != null) {
-      fileName = args.file;
-      repo.getNote(args.file).then((text) => _textEditcontroller.text = text);
+      _fileName = args.file;
+      _notesRepo
+          .getNote(args.file)
+          .then((text) => _textEditcontroller.text = text);
     }
 
     return Scaffold(
@@ -96,16 +100,23 @@ class _MainScreenState extends State<MainScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16.0, 20, 16.0, 0),
                     child: StreamBuilder<TypewriterState>(
-                        initialData: TypewriterState(isOpen: true, type: KeyboardType.CAPS),
+                        initialData: TypewriterState(
+                            isOpen: true, type: KeyboardType.CAPS),
                         stream: _keyboardController.stateStream,
                         builder: (context, snapshot) {
                           final keyboardShown = snapshot.data.isOpen;
 
-                          return Container(
-                            width: MediaQuery.of(context).size.width,
-                            color: Colors.transparent,
-                            height: (keyboardShown) ? MediaQuery.of(context).size.height - 310 : null,
-                            child: buildInkRibbonEditableText(),
+                          return RawKeyboardListener(
+                            focusNode: FocusNode(),
+                            onKey: (key) => _handleKey(key),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              color: Colors.transparent,
+                              height: (keyboardShown)
+                                  ? MediaQuery.of(context).size.height - 310
+                                  : null,
+                              child: buildInkRibbonEditableText(),
+                            ),
                           );
                         }),
                   )
@@ -127,7 +138,7 @@ class _MainScreenState extends State<MainScreen> {
 
   InkRibbonEditableText buildInkRibbonEditableText() {
     return InkRibbonEditableText(
-      key: ValueKey('$xPosition$yPosition'),
+      key: ValueKey('$_xPosition$_yPosition'),
       controller: _textEditcontroller,
       cursorColor: Colors.black87,
       cursorOpacityAnimates: false,
@@ -144,12 +155,20 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
+  void _handleKey(RawKeyEvent key) {
+    if (key.runtimeType == RawKeyDownEvent) {
+      _onTextReceived(key.data.keyLabel);
+    }
+  }
+
   void _onTextReceived(String text) {
     if (text == 'backspace') {
-      _textEditcontroller.text = _textEditcontroller.text.substring(0, _textEditcontroller.text.length - 1);
+      _textEditcontroller.text = _textEditcontroller.text
+          .substring(0, _textEditcontroller.text.length - 1);
     } else {
       _textEditcontroller.text = _textEditcontroller.text + text;
     }
-    _textEditcontroller.selection = TextSelection.fromPosition(TextPosition(offset: _textEditcontroller.text.length));
+    _textEditcontroller.selection = TextSelection.fromPosition(
+        TextPosition(offset: _textEditcontroller.text.length));
   }
 }
