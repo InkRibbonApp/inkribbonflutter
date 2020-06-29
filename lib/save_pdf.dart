@@ -9,12 +9,7 @@ Future<File> createPDF(String typeWriterText, String filename) async {
   pdf.addPage(Page(
       pageFormat: PdfPageFormat.a4,
       build: (Context context) {
-        return Center(
-          child: Text(
-              typeWriterText,
-              style: TextStyle(fontSize: 22)
-          ),
-        ); // Center
+        return Text(typeWriterText, style: TextStyle(fontSize: 22, font: Font.courierBold())); // Center
       }));
   var output = await getTemporaryDirectory();
   final file = File('${output.path}/${filename}.pdf');
