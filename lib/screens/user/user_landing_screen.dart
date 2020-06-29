@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hackathon/data/notes/notes_repo.dart';
 import 'package:flutter_hackathon/screens/main_screen/main_screen.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 import '../../text_styles.dart';
 
@@ -71,10 +72,19 @@ class _UserLandingScreenState extends State<UserLandingScreen> {
                   );
                 } else {
                   return Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Getting saved files from your account',
-                      style: kLoginTextStyle,
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.all(32.0),
+                      child: SizedBox(
+                        width: 250,
+                        child: TypewriterAnimatedTextKit(
+                          text: ['Syncing your account'],
+                          repeatForever: true,
+                          speed: Duration(milliseconds: 80),
+                          textAlign: TextAlign.start,
+                          textStyle: kTypewriterTextStyle,
+                        ),
+                      ),
                     ),
                   );
                 }

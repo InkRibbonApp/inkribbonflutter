@@ -30,6 +30,7 @@ dependencies:
   audioplayers: ^0.15.1
 
   google_sign_in: ^4.5.1
+  animated_text_kit: ^2.2.0
 
 dev_dependencies:
   flutter_test:
