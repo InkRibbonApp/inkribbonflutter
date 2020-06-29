@@ -1,12 +1,18 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:audioplayers/audio_cache.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hackathon/data/notes/notes_repo.dart';
+import 'package:flutter_hackathon/save_pdf.dart';
+import 'package:flutter_hackathon/view_pdf.dart';
 import 'package:flutter_hackathon/widgets/typewriter_keyboard.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../text_styles.dart';
@@ -34,12 +40,20 @@ class _MainScreenState extends State<MainScreen> {
   String _fileName = 'Note-${DateTime.now().toIso8601String()}';
   AudioCache _audioPlayer;
 
+  var pdfSave = CupertinoIcons.share;
+
   @override
   void initState() {
     super.initState();
     _audioPlayer = Provider.of<AudioCache>(context, listen: false);
 
-    _keyboardController = TypewriterKeyboardController();
+    if(!kIsWeb) {
+      if(Platform.isAndroid) {
+        pdfSave =  Icons.share;
+      }
+    }
+
+      _keyboardController = TypewriterKeyboardController();
     _keyboardController.textStream.listen(_onTextReceived);
     _keyboardController.stateStream.listen((event) {
       _textEditcontroller.selection = TextSelection.fromPosition(
@@ -88,6 +102,23 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(),
+        actions: <Widget>[
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {
+                  createPDF(_textEditcontroller.text, _fileName);
+                  getTemporaryDirectory().then((value) => {
+                   Navigator.push(context, MaterialPageRoute(
+                       builder: (context) => PDFScreen(_fileName, value.path)
+                     ))
+                  });
+
+                },
+                child: Icon(pdfSave),
+              )
+          ),
+        ],
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
