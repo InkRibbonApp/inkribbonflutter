@@ -107,7 +107,7 @@ class _MainScreenState extends State<MainScreen> {
               padding: EdgeInsets.only(right: 20.0),
               child: GestureDetector(
                 onTap: () {
-                  createPDF(_textEditcontroller.text, _fileName)
+                  createPDF(_textEditcontroller.text, _fileName, kIsWeb)
                       .whenComplete(() => {
                             getTemporaryDirectory().then((value) => {
                                   Navigator.push(
