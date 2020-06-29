@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: MediaQuery.of(context).size.height,
                   child: Image(fit: BoxFit.fill, image: AssetImage('assets/paper/paper.png'))),
               Align(
-                alignment: (MediaQuery.of(context).size.height > 600) ? Alignment.center : Alignment.topCenter,
+                alignment: (MediaQuery.of(context).size.height > 600) ? Alignment(0, -0.3) : Alignment.topCenter,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 32.0),
                   child: Image(
