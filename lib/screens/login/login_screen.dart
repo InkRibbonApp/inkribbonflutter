@@ -50,15 +50,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.bottomCenter,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 18.0),
-                  child: Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    direction: Axis.vertical,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
-                        'Login to save your work on the cloud and access it on different devices',
-                        overflow: TextOverflow.visible,
-                        style: kLoginGoogleTextStyle,
-                        textAlign: TextAlign.center,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
+                        child: Text(
+                          'Login to save your work on the cloud and access it on different devices',
+                          style: kLoginGoogleTextStyle,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                       _googleSignInWidget(context),
                       _skipWidget(context),
@@ -91,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
       padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 8.0),
       color: Colors.transparent,
       onPressed: () {
-        Navigator.pushReplacementNamed(context, '/main');
+        Navigator.pushNamed(context, '/main');
       },
       child: Text(
         'Skip >>',

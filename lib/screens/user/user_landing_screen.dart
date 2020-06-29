@@ -38,8 +38,11 @@ class _UserLandingScreenState extends State<UserLandingScreen> {
           children: [
             RaisedButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/main',
-                    arguments: MainScreenArguments(args.user, null));
+                Navigator.pushNamed(
+                  context,
+                  '/main',
+                  arguments: MainScreenArguments(args.user, null),
+                );
               },
               child: Text(
                 'New file >>',
@@ -49,8 +52,7 @@ class _UserLandingScreenState extends State<UserLandingScreen> {
             Flexible(
               child: FutureBuilder<List<String>>(
                 future: _repo.getListOfNotes(args.user),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<String>> snapshot) {
+                builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
                   if (snapshot.hasData) {
                     return ListView.builder(
                       itemCount: snapshot.data.length,
@@ -58,9 +60,7 @@ class _UserLandingScreenState extends State<UserLandingScreen> {
                         final file = snapshot.data[index];
                         return GestureDetector(
                           onTap: () {
-                            Navigator.pushReplacementNamed(context, '/main',
-                                arguments:
-                                    MainScreenArguments(args.user, file));
+                            Navigator.pushNamed(context, '/main', arguments: MainScreenArguments(args.user, file));
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(20.0),
