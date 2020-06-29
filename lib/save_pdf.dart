@@ -13,6 +13,6 @@ Future<File> createPDF(String typeWriterText, String filename) async {
       }));
   var output = await getTemporaryDirectory();
   final file = File('${output.path}/${filename}.pdf');
-  file.writeAsBytesSync(pdf.save());
+  file.writeAsBytesSync(pdf.save(), mode: FileMode.append);
   return file;
 }

@@ -47,13 +47,13 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     _audioPlayer = Provider.of<AudioCache>(context, listen: false);
 
-    if(!kIsWeb) {
-      if(Platform.isAndroid) {
-        pdfSave =  Icons.share;
+    if (!kIsWeb) {
+      if (Platform.isAndroid) {
+        pdfSave = Icons.share;
       }
     }
 
-      _keyboardController = TypewriterKeyboardController();
+    _keyboardController = TypewriterKeyboardController();
     _keyboardController.textStream.listen(_onTextReceived);
     _keyboardController.stateStream.listen((event) {
       _textEditcontroller.selection = TextSelection.fromPosition(
@@ -107,17 +107,19 @@ class _MainScreenState extends State<MainScreen> {
               padding: EdgeInsets.only(right: 20.0),
               child: GestureDetector(
                 onTap: () {
-                  createPDF(_textEditcontroller.text, _fileName);
-                  getTemporaryDirectory().then((value) => {
-                   Navigator.push(context, MaterialPageRoute(
-                       builder: (context) => PDFScreen(_fileName, value.path)
-                     ))
-                  });
-
+                  createPDF(_textEditcontroller.text, _fileName)
+                      .whenComplete(() => {
+                            getTemporaryDirectory().then((value) => {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => PDFScreen(
+                                              _fileName, value.path, pdfSave)))
+                                })
+                          });
                 },
                 child: Icon(pdfSave),
-              )
-          ),
+              )),
         ],
         backgroundColor: Colors.transparent,
         elevation: 0,
