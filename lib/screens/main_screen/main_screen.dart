@@ -212,10 +212,10 @@ class _MainScreenState extends State<MainScreen> {
 
   void _handleKey(RawKeyEvent key) {
     if (key.runtimeType == RawKeyDownEvent) {
-      if (key.logicalKey.debugName == "Backspace") {
+      if (key.logicalKey.keyId == 4295426090) {
         _playSoundAccordingToKeyName("backspace");
         _onTextReceived("backspace");
-      } else if (key.logicalKey.debugName == "Enter") {
+      } else if (key.logicalKey.keyId == 4295426088) {
         _playSoundAccordingToKeyName("enter");
         _onTextReceived("enter");
       } else if (key.logicalKey.debugName == "Tab") {
