@@ -39,8 +39,10 @@ class _MainScreenState extends State<MainScreen> {
   TypewriterKeyboardController _keyboardController;
   String _fileName = 'Note-${DateTime.now().toIso8601String()}';
   AudioCache _audioPlayer;
+  Timer _autoSaveTimer;
 
   var pdfSave = CupertinoIcons.share;
+  var logoutIcon = Icons.exit_to_app;
 
   @override
   void initState() {
@@ -67,7 +69,8 @@ class _MainScreenState extends State<MainScreen> {
       ],
     );
 
-    Timer.periodic(Duration(seconds: 5), (Timer t) => _autoSave());
+    _autoSaveTimer =
+        Timer.periodic(Duration(seconds: 5), (Timer t) => _autoSave());
   }
 
   void _autoSave() {
@@ -84,6 +87,8 @@ class _MainScreenState extends State<MainScreen> {
       DeviceOrientation.portraitDown,
     ]);
     super.dispose();
+
+    _autoSaveTimer.cancel();
   }
 
   @override
@@ -120,6 +125,17 @@ class _MainScreenState extends State<MainScreen> {
                 },
                 child: Icon(pdfSave),
               )),
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {
+                  FirebaseAuth.instance.signOut().then((value) {
+                    _autoSaveTimer.cancel();
+                    Navigator.pushNamed(context, '/login');
+                  });
+                },
+                child: Icon(logoutIcon),
+              ))
         ],
         backgroundColor: Colors.transparent,
         elevation: 0,
