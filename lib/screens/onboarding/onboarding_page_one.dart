@@ -3,7 +3,7 @@ import 'package:flutter_hackathon/text_styles.dart';
 
 class OnboardingPageOne extends StatelessWidget {
   final String title = 'Type away your thoughts and ideas';
-  final String mainImage = 'assets/onboarding/typewriter-black.png';
+  final String mainImage = 'assets/logo/logo_512.png';
 
   @override
   Widget build(BuildContext context) {

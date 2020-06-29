@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 32.0),
                   child: Image(
-                    image: AssetImage("assets/login/inkribbon-logo.png"),
+                    image: AssetImage("assets/logo/logo_512.png"),
                     height: 160.0,
                   ),
                 ),
