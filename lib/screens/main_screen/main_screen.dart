@@ -1,17 +1,16 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:audioplayers/audio_cache.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hackathon/data/notes/notes_repo.dart';
 import 'package:flutter_hackathon/save_pdf.dart';
 import 'package:flutter_hackathon/view_pdf.dart';
+import 'package:flutter_hackathon/widgets/pdf_icon.dart';
 import 'package:flutter_hackathon/widgets/typewriter_keyboard.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -41,19 +40,12 @@ class _MainScreenState extends State<MainScreen> {
   AudioCache _audioPlayer;
   Timer _autoSaveTimer;
 
-  var pdfSave = CupertinoIcons.share;
   var logoutIcon = Icons.exit_to_app;
 
   @override
   void initState() {
     super.initState();
     _audioPlayer = Provider.of<AudioCache>(context, listen: false);
-
-    if (!kIsWeb) {
-      if (Platform.isAndroid) {
-        pdfSave = Icons.share;
-      }
-    }
 
     _keyboardController = TypewriterKeyboardController();
     _keyboardController.textStream.listen(_onTextReceived);
@@ -69,8 +61,7 @@ class _MainScreenState extends State<MainScreen> {
       ],
     );
 
-    _autoSaveTimer =
-        Timer.periodic(Duration(seconds: 5), (Timer t) => _autoSave());
+    _autoSaveTimer = Timer.periodic(Duration(seconds: 5), (Timer t) => _autoSave());
   }
 
   void _autoSave() {
@@ -112,18 +103,25 @@ class _MainScreenState extends State<MainScreen> {
               padding: EdgeInsets.only(right: 20.0),
               child: GestureDetector(
                 onTap: () {
-                  createPDF(_textEditcontroller.text, _fileName, kIsWeb)
-                      .whenComplete(() => {
-                            getTemporaryDirectory().then((value) => {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => PDFScreen(
-                                              _fileName, value.path, pdfSave)))
-                                })
-                          });
+                  createPDF(_textEditcontroller.text, _fileName, kIsWeb).whenComplete(
+                    () => {
+                      getTemporaryDirectory().then(
+                        (value) => {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PDFScreen(
+                                filename: _fileName,
+                                path: value.path,
+                              ),
+                            ),
+                          )
+                        },
+                      )
+                    },
+                  );
                 },
-                child: Icon(pdfSave),
+                child: PdfIcon(),
               )),
           Padding(
               padding: EdgeInsets.only(right: 20.0),
@@ -155,8 +153,7 @@ class _MainScreenState extends State<MainScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16.0, 20, 16.0, 0),
                     child: StreamBuilder<TypewriterState>(
-                        initialData: TypewriterState(
-                            isOpen: true, type: KeyboardType.CAPS),
+                        initialData: TypewriterState(isOpen: true, type: KeyboardType.CAPS),
                         stream: _keyboardController.stateStream,
                         builder: (context, snapshot) {
                           final keyboardShown = snapshot.data.isOpen;
@@ -167,9 +164,7 @@ class _MainScreenState extends State<MainScreen> {
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               color: Colors.transparent,
-                              height: (keyboardShown)
-                                  ? MediaQuery.of(context).size.height - 310
-                                  : null,
+                              height: (keyboardShown) ? MediaQuery.of(context).size.height - 310 : null,
                               child: buildInkRibbonEditableText(),
                             ),
                           );
@@ -233,8 +228,7 @@ class _MainScreenState extends State<MainScreen> {
 
     switch (textValue) {
       case 'backspace':
-        _textEditcontroller.text = _textEditcontroller.text
-            .substring(0, _textEditcontroller.text.length - 1);
+        _textEditcontroller.text = _textEditcontroller.text.substring(0, _textEditcontroller.text.length - 1);
         break;
       case 'enter':
         _textEditcontroller.text = _textEditcontroller.text + '\n';
@@ -246,8 +240,7 @@ class _MainScreenState extends State<MainScreen> {
         _textEditcontroller.text = _textEditcontroller.text + text;
     }
 
-    _textEditcontroller.selection = TextSelection.fromPosition(
-        TextPosition(offset: _textEditcontroller.text.length));
+    _textEditcontroller.selection = TextSelection.fromPosition(TextPosition(offset: _textEditcontroller.text.length));
   }
 
   void _playSoundAccordingToKeyName(String keyName) {
