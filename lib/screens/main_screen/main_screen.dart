@@ -11,6 +11,7 @@ import 'package:flutter_hackathon/save_pdf.dart';
 import 'package:flutter_hackathon/view_pdf.dart';
 import 'package:flutter_hackathon/widgets/pdf_icon.dart';
 import 'package:flutter_hackathon/widgets/typewriter_keyboard.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -30,8 +31,6 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final _notesRepo = NotesRepo();
-  double _xPosition = 0;
-  double _yPosition = 0;
   TextEditingController _textEditcontroller = TextEditingController(
     text: '',
   );
@@ -39,8 +38,6 @@ class _MainScreenState extends State<MainScreen> {
   String _fileName = 'Note-${DateTime.now().toIso8601String()}';
   AudioCache _audioPlayer;
   Timer _autoSaveTimer;
-
-  var logoutIcon = Icons.exit_to_app;
 
   @override
   void initState() {
@@ -124,16 +121,19 @@ class _MainScreenState extends State<MainScreen> {
                 child: PdfIcon(),
               )),
           Padding(
-              padding: EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () {
-                  FirebaseAuth.instance.signOut().then((value) {
+            padding: EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: () {
+                FirebaseAuth.instance.signOut().then(
+                  (_) {
                     _autoSaveTimer.cancel();
                     Navigator.pushNamed(context, '/login');
-                  });
-                },
-                child: Icon(logoutIcon),
-              ))
+                  },
+                );
+              },
+              child: Icon(SimpleLineIcons.logout, size: 20),
+            ),
+          )
         ],
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -188,7 +188,6 @@ class _MainScreenState extends State<MainScreen> {
 
   EditableText buildInkRibbonEditableText() {
     return EditableText(
-      key: ValueKey('$_xPosition$_yPosition'),
       controller: _textEditcontroller,
       cursorColor: Colors.black87,
       cursorOpacityAnimates: false,
