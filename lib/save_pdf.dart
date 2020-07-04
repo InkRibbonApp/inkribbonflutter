@@ -5,16 +5,24 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:universal_html/html.dart' as html;
 
-
 Future<void> createPDF(String typeWriterText, String filename, bool kIsWeb) async {
   final Document pdf = Document();
-  pdf.addPage(Page(
+  pdf.addPage(
+    Page(
       pageFormat: PdfPageFormat.a4,
-      build: (Context context) {
-        return Text(typeWriterText, style: TextStyle(fontSize: 22, font: Font.courierBold())); // Center
-      }));
+      build: (_) {
+        return Text(
+          typeWriterText,
+          style: TextStyle(
+            fontSize: 22,
+            font: Font.courierBold(),
+          ),
+        );
+      },
+    ),
+  );
 
-  if(kIsWeb) {
+  if (kIsWeb) {
     final blob = html.Blob([pdf.save()], 'application/pdf');
     final url = html.Url.createObjectUrlFromBlob(blob);
     html.window.open(url, "_blank");

@@ -11,5 +11,10 @@ Future<void> main() async {
     await prefs.setBool('onBoardingState', false);
   }
   final audioPlayer = AudioCache();
-  runApp(TypewriterApp(showOnboardingScreen: showOnboardingScreen, audioPlayer: audioPlayer));
+  runApp(
+    TypewriterApp(
+      showOnboardingScreen: showOnboardingScreen,
+      audioPlayer: audioPlayer,
+    ),
+  );
 }

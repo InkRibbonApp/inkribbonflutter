@@ -3,8 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TypewriterKey extends StatefulWidget {
-  TypewriterKey({@required this.assetName, Key key, this.height, this.width, this.onTap, this.padding, this.soundAsset})
-      : super(key: key);
+  TypewriterKey({
+    @required this.assetName,
+    Key key,
+    this.height,
+    this.width,
+    this.onTap,
+    this.padding,
+    this.soundAsset,
+  }) : super(key: key);
 
   final double height;
   final double width;
