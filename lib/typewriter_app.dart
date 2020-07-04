@@ -7,21 +7,20 @@ import 'package:flutter_hackathon/screens/user/user_landing_screen.dart';
 import 'package:provider/provider.dart';
 
 class TypewriterApp extends StatelessWidget {
-  static AudioCache player = AudioCache();
+  TypewriterApp({@required this.showOnboardingScreen, @required this.audioPlayer});
 
-  TypewriterApp(this.shouldShowOnboard);
-
-  final bool shouldShowOnboard;
+  final bool showOnboardingScreen;
+  final AudioCache audioPlayer;
 
   @override
   Widget build(BuildContext context) {
     return Provider<AudioCache>.value(
-      value: player,
+      value: audioPlayer,
       child: MaterialApp(
         theme: ThemeData.dark().copyWith(
           bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.transparent),
         ),
-        initialRoute: shouldShowOnboard ? '/' : '/login',
+        initialRoute: showOnboardingScreen ? '/' : '/login',
         routes: {
           '/': (context) => OnboardingScreen(),
           '/login': (context) => LoginScreen(),
