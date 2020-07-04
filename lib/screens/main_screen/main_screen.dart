@@ -34,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
   TextEditingController _textEditcontroller = TextEditingController(
     text: '',
   );
-  TypewriterKeyboardController _keyboardController;
+  TypewriterKeyboardController _typewriterKeyboardController;
   String _fileName = 'Note-${DateTime.now().toIso8601String()}';
   AudioCache _audioPlayer;
   Timer _autoSaveTimer;
@@ -44,9 +44,9 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     _audioPlayer = Provider.of<AudioCache>(context, listen: false);
 
-    _keyboardController = TypewriterKeyboardController();
-    _keyboardController.textStream.listen(_onTextReceived);
-    _keyboardController.stateStream.listen((event) {
+    _typewriterKeyboardController = TypewriterKeyboardController();
+    _typewriterKeyboardController.textStream.listen(_onTextReceived);
+    _typewriterKeyboardController.stateStream.listen((event) {
       _textEditcontroller.selection = TextSelection.fromPosition(
         TextPosition(offset: _textEditcontroller.text.length),
       );
@@ -154,13 +154,13 @@ class _MainScreenState extends State<MainScreen> {
                     padding: const EdgeInsets.fromLTRB(16.0, 20, 16.0, 0),
                     child: StreamBuilder<TypewriterState>(
                         initialData: TypewriterState(isOpen: true, type: KeyboardType.CAPS),
-                        stream: _keyboardController.stateStream,
+                        stream: _typewriterKeyboardController.stateStream,
                         builder: (context, snapshot) {
                           final keyboardShown = snapshot.data.isOpen;
 
                           return RawKeyboardListener(
                             focusNode: FocusNode(),
-                            onKey: (key) => _handleKey(key),
+                            onKey: (key) => _handlePhysicalKey(key),
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               color: Colors.transparent,
@@ -177,7 +177,7 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
       bottomSheet: TypewriterKeyboard(
-        typewriterKeyboardController: _keyboardController,
+        typewriterKeyboardController: _typewriterKeyboardController,
       ),
     );
   }
@@ -204,7 +204,7 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  void _handleKey(RawKeyEvent key) {
+  void _handlePhysicalKey(RawKeyEvent key) {
     if (key.runtimeType == RawKeyDownEvent) {
       if (key.logicalKey.keyId == 4295426090) {
         _playSoundAccordingToKeyName("backspace");
